@@ -8,13 +8,8 @@ main:
     class: first
   - label: Overview
     path: /page/overview
-  - label: PV
-    path: /page/pv
-    submenu:
-      - label: PV 1
-        path: /page/pv/1
-      - label: PV 2
-        path: /page/pv/2
+  - label: Privacy
+    path: /page/privacy
   - label: IPR
     path: /page/ipr
     submenu:
@@ -29,6 +24,10 @@ main:
         path: /page/ig/1
       - label: IG 2
         path: /page/ig/2
+  - label: Startups
+    path: /page/startups
+  - label: Suggest
+    path: /page/suggest
 
 footer:
   - label: Sitemap

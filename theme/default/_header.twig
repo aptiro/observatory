@@ -8,9 +8,10 @@
 
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
 
-		<link rel="stylesheet" href="{{ paths.theme }}css/style.css"/>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="{{ paths.theme }}css/site.css"/>
 
-		<script src="{{ paths.theme }}js/jquery-1.10.2.min.js"></script>
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -18,16 +19,17 @@
 
 	<body>
 
-	<div id="wrapper">
+	<div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>
+                    <a href="{{ paths.root }}">{{ app.config.get('general/sitename') }}</a>
+                </h1>
+            </div>
+        </div>
 
-        <header>
-            <h1><a href="{{ paths.root }}">{{ app.config.get('general/sitename') }}</a></h1>
-
-            {{ menu() }}
-
-            {% include '_sub_searchbox.twig' %}
-
-        </header>
-
-<div class="content">
-
+        <div class="row content">
+            <div class="col-sm-2">
+                {{ menu('main', '_menu_sidebar.twig') }}
+            </div>
+            <div class="col-sm-7">

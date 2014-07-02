@@ -1,17 +1,18 @@
-</div>
-	
-    {% include '_aside.twig' %}
-    
+            </div>
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% include '_sub_searchbox.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>    
     <footer class="clearfix">
-        <p>This site is powered by <a href="http://bolt.cm">Bolt</a>: Sophisticated, lightweight & simple CMS.</p>
-        <ul class="list-inline">
-            {{ menu('footer') }}
-        </ul>
-    </footer>
-    
-    
-    </div>		
-
+        {{ menu('footer', '_menu_footer.twig') }}
+    </footer>    
+    </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 	
 </html>

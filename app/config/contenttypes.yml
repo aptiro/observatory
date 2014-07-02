@@ -92,19 +92,20 @@ items:
             uses: title
         url:
             type: textarea
+            pattern: url
         description:
             type: html
-        tags:
-            type: textarea
-
-tags:
-    name: Tags
-    singular_name: Tag
-    fields:
-        title:
-            type: text
-            class: large
-
+        featured:
+            type: select
+            values: [ No, Yes ]
+            default: null
+        country:
+            type: select
+            values: [ Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, United Kingdom ]
+        weight:
+            type: integer
+            postfix: 'A number between 0 - 100. 0 = Least Important, 100 = Most Important'
+    taxonomy: [ tags, featured, publisher ]
 
 # The 'Kitchensink' is not particularly useful in most cases, but it does a good
 # job of showcasing most of the available fieldtypes. Feel free to delete it, or

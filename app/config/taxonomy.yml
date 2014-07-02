@@ -7,12 +7,13 @@ tags:
     behaves_like: tags
     #listing_template: tag-listing.twig #custom template
 
-chapters:
-    slug: chapters
-    singular_slug: chapter
-    behaves_like: grouping
-    options: { main: "The main chapter", meta: "Meta Chapter", other: "The other stuff" }
-    has_sortorder: true
+publisher:
+    name: Publisher
+    slug: publisher
+    singular_name: publisher
+    singular_slug: publisher
+    behaves_like: categories
+    options: [ Government, Civil Society, Industry, European Bodies]
 
 categories:
     name: Categories

@@ -1,0 +1,23 @@
+<ul class="nav nav-pills nav-stacked">
+    {% for item in menu %}
+    <li class="{{ item.class }} {% if item.submenu is defined %}dropdown{% endif %}">
+        <a href="{{ item.link }}">
+            {{ item.label }}
+            {% if item.submenu is defined %}
+                <span class="caret"></span>
+            {% endif %}
+        </a>
+        {% if item.submenu is defined %}
+            <ul class="dropdown-menu" role="menu">
+                {% for item in item.submenu %}
+                    <li class="{{ item.class }}">
+                        <a href="{{ item.link }}">
+                            {{ item.label }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

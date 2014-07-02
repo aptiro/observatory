@@ -1,25 +1,24 @@
 {% include '_header.twig' %}
 
-
-{% setcontent entries = "entries/latest/4" allowpaging %}
-
-{% for entry in entries %}
-<article>
-    {% if entry.image!="" %}
-        <div class='imageholder'><img src="{{ entry.image|thumbnail(120, 120) }}">
+{% setcontent items = "items" where { featured: 'Yes' } orderby '-weight' limit 3 %}
+{% for item in items %}
+    {% if loop.index == 1 %}
+        <div class="row">
+            <div class="col-sm-12">
+                {% include '_item_panel.twig' with { item: item } %}
+            </div>
+        </div>
+    {% else %}
+        {% if loop.index == 2 %}
+            <div class="row">
+        {% endif %}
+        <div class="col-sm-6">
+            {% include '_item_panel.twig' with { item: item } %}
         </div>
     {% endif %}
-
-    <h2><a href="{{ entry.link }}">{{ entry.title }}</a></h2>
-
-    {{ entry.teaser }}
-
-    {% include '_recordfooter.twig' with {record: record} %}
-
-</article>
 {% endfor %}
-
-{{ pager() }}
+            <!-- 2nd priority featured items loop end -->
+            </div>
 
 
 {% include '_footer.twig' %}

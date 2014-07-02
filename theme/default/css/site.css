@@ -1,0 +1,50 @@
+footer {
+    text-align: right;
+}
+
+footer .nav.nav-pills li {
+    float: right;
+}
+
+
+
+.nav-stacked > li.dropdown:hover {
+
+}
+
+.nav-stacked > li.dropdown ul.dropdown-menu {
+    margin-top: -2px;
+    padding: 0;
+    border-radius: 0;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+}
+
+.nav-stacked > li.dropdown:hover ul.dropdown-menu {
+    display: block;
+}
+
+.nav-stacked > li > a, .nav-stacked > li.dropdown ul.dropdown-menu > li > a {
+    border-radius: 0;
+    padding: 7px 15px;
+}
+
+.nav-stacked > li.dropdown:hover {
+    background: #eeeeee;
+}
+
+.nav-stacked > li.dropdown:hover > a {
+    background: #428bca;
+    color: #fff;
+}
+
+.nav-stacked > li.dropdown:hover ul li a {
+    background: #428bca;
+    color: #fff;
+}
+
+.nav-stacked > li > a:hover, .nav-stacked > li.dropdown:hover ul li a:hover {
+    background: #2B608F;
+    color: #fff;
+}

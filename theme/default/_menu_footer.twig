@@ -1,0 +1,7 @@
+<ul class="nav nav-pills">
+{% for item in menu %}
+    <li>
+        <a href="{{ item.link }}">{{item.label}}</a>
+    </li>
+{% endfor %}
+</ul>
