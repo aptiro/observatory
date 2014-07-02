@@ -34,8 +34,7 @@ class Extension extends \Bolt\BaseExtension
                 $table->setPrimaryKey(array("id"));
                 $table->addColumn("url", "text");
                 $table->addColumn("item", "text");
-                $table->addColumn("time", "datetime",
-                    array('default' => 'CURRENT_TIMESTAMP'));
+                $table->addColumn("time", "datetime");
                 $table->addUniqueIndex(array("url", "item"));
                 return $table;
             }
@@ -121,6 +120,7 @@ class Controller
                 $db->insert($table_name, array(
                     'url' => $item['feed'],
                     'item' => $item['id'],
+                    'time' => date('Y-m-d H:i:s'),
                 ));
                 $this->create_cms_item($item);
                 $rv = true;
