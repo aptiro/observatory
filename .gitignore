@@ -1,5 +1,5 @@
 app/cache/*
-app/config/*.yml
+app/config/config.yml
 *config.yml
 app/database/*
 files/*
