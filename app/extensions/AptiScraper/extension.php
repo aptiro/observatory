@@ -32,10 +32,11 @@ class Extension extends \Bolt\BaseExtension
                 $table->addColumn("id", "integer",
                     array('autoincrement' => true));
                 $table->setPrimaryKey(array("id"));
-                $table->addColumn("key", "text");
+                $table->addColumn("url", "text");
+                $table->addColumn("item", "text");
                 $table->addColumn("time", "datetime",
                     array('default' => 'CURRENT_TIMESTAMP'));
-                $table->addUniqueIndex(array("key"));
+                $table->addUniqueIndex(array("url", "item"));
                 return $table;
             }
         );
@@ -89,7 +90,8 @@ class Controller
 
         foreach ($feed->get_items() as $item) {
             $rv[] = array(
-                'key' => $url . " ~~~ " . $item->get_id(),
+                'feed' => $url,
+                'id' => $item->get_id(),
                 'title' => $item->get_title(),
                 'description' => $item->get_description(),
                 'date' => $item->get_date('j F Y | g:i a'),
@@ -108,14 +110,18 @@ class Controller
         try {
             $stmt = $db->prepare(
                 'SELECT count(*) as count FROM ' . $table_name .
-                ' WHERE key = ?'
+                ' WHERE url = ? AND item = ?'
             );
-            $stmt->bindValue(1, $item['key']);
+            $stmt->bindValue(1, $item['feed']);
+            $stmt->bindValue(2, $item['id']);
             $stmt->execute();
             $seen = $stmt->fetchAll()[0]['count'] > 0;
 
             if(! $seen) {
-                $db->insert($table_name, array('key' => $item['key']));
+                $db->insert($table_name, array(
+                    'url' => $item['feed'],
+                    'item' => $item['id'],
+                ));
                 $this->create_cms_item($item);
                 $rv = true;
             }
