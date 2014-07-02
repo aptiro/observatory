@@ -29,9 +29,12 @@ class Extension extends \Bolt\BaseExtension
         $this->app['integritychecker']->registerExtensionTable(
             function ($schema) use ($table_name) {
                 $table = $schema->createTable($table_name);
-                $table->addColumn("id", "integer", array('autoincrement' => true));
+                $table->addColumn("id", "integer",
+                    array('autoincrement' => true));
                 $table->setPrimaryKey(array("id"));
                 $table->addColumn("key", "text");
+                $table->addColumn("time", "datetime",
+                    array('default' => 'CURRENT_TIMESTAMP'));
                 $table->addUniqueIndex(array("key"));
                 return $table;
             }
