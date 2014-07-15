@@ -119,6 +119,9 @@ domains:
         title:
             type: text
             class: large
+        slug:
+            type: slug
+            uses: title
         weight:
             type: integer
             postfix: 'The smaller the number, the higher in the list'
@@ -131,6 +134,9 @@ subdomains:
         title:
             type: text
             class: large
+        slug:
+            type: slug
+            uses: title
         weight:
             type: integer
             postfix: 'The smaller the number, the higher in the list'
@@ -139,6 +145,9 @@ subdomains:
             multiple: false
             label: Parent Domain
             order: weight
+        items:
+            multiple: true
+            label: Items
 
 feeds:
     name: Feeds

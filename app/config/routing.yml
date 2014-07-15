@@ -47,7 +47,10 @@ contentlisting:
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.
 
-
+subdomain:
+  path: /subdomain/{slug}
+  defaults: { _controller: 'Bolt\Controllers\Frontend::record', 'contenttypeslug': 'subdomain' }
+#  contenttype: subdomain
 
 # ------------------------------------------------------------------------------
 # Routes examples:
