@@ -653,11 +653,12 @@
 {# --------------- textarea --------------- #}
 
 {% if field.type == "textarea" %}
-<label><b>{% if field.label %}{{field.label|trans}}{% else %}{{ key|ucfirst|trans}}{%endif%}</b></label>
-<textarea name="{{key}}" class='{% if field.class is defined %}{{ field.class }}{% endif %}'
+<label class="label-{{ key|trans }}"><b>{% if field.label %}{{field.label|trans}}{% else %}{{ key|ucfirst|trans}}{%endif%}</b></label>
+<textarea name="{{key}}" class='field-{{ key|trans }}{% if field.class is defined %} {{ field.class }}{% endif %}'
     style='{% if field.height is defined %}height: {{ field.height }}{% endif %}'
     {% if field.required is defined and field.required %}required{% endif %}
-    >{% if content.get(key) is defined %}{{ content.get(key) }}{% endif %}</textarea>
+    >{% if content.get(key) is defined %}{{ content.get(key) }}{% endif %}
+</textarea>
 {% endif %}
 
 

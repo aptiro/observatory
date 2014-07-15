@@ -1495,4 +1495,7 @@ blockquote.quote cite {
 
 }
 
-
+/* Custom Styles */
+label.label-errors, textarea.field-errors {
+    display: none;
+}

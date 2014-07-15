@@ -107,6 +107,19 @@ items:
             postfix: 'A number between 0 - 100. 0 = Least Important, 100 = Most Important'
     taxonomy: [ tags, featured, publisher ]
 
+feeds:
+    name: Feeds
+    singular_name: Feed
+    fields:
+        name:
+            type: text
+            class: large
+        url:
+            type: textarea
+            pattern: url
+        errors:
+            type: textarea
+
 # The 'Kitchensink' is not particularly useful in most cases, but it does a good
 # job of showcasing most of the available fieldtypes. Feel free to delete it, or
 # copy some fields to your own contenttypes.
