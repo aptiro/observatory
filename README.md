@@ -22,3 +22,9 @@ make changes in `app/config/config.yml`:
     debug: false # for production
     scraping_key: asdf
 ```
+
+
+periodically run the scraper:
+```
+    curl 'http://apti-obs.devel/apti-scraper/' -d key=asdf
+```
