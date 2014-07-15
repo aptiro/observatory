@@ -105,6 +105,8 @@ items:
         weight:
             type: integer
             postfix: 'A number between 0 - 100. 0 = Least Important, 100 = Most Important'
+        feed_id:
+            type: integer
     relations:
         subdomains:
             multiple: true

@@ -66,9 +66,12 @@ class Controller
         $this->app = $app;
     }
 
+    public function get_db_prefix() {
+        return $this->app['config']->get('general/database/prefix', "bolt_");
+    }
+
     public function get_table_name() {
-        $prefix = $this->app['config']->get('general/database/prefix', "bolt_");
-        return $prefix . "aptiscraper_visited";
+        return $this->get_db_prefix() . "aptiscraper_visited";
     }
 
     public function fetch_feed($url) {
@@ -83,7 +86,10 @@ class Controller
         $feed->init();
         $feed->handle_content_type();
 
-        echo "feed title: " . $feed->get_title();
+        $error = $feed->error();
+        if($error) {
+            throw new \Exception($error);
+        }
 
         $rv = array();
 
@@ -91,6 +97,7 @@ class Controller
             $rv[] = array(
                 'feed' => $url,
                 'id' => $item->get_id(),
+                'url' => $item->get_permalink(),
                 'title' => $item->get_title(),
                 'description' => $item->get_description(),
                 'date' => $item->get_date('j F Y | g:i a'),
@@ -100,7 +107,7 @@ class Controller
         return $rv;
     }
 
-    public function visit_item($item) {
+    public function visit_item($item, $feed_id) {
         $table_name = $this->get_table_name();
         $rv = false;
 
@@ -122,7 +129,7 @@ class Controller
                     'item' => $item['id'],
                     'time' => date('Y-m-d H:i:s'),
                 ));
-                $this->create_cms_item($item);
+                $this->create_cms_item($item, $feed_id);
                 $rv = true;
             }
 
@@ -135,39 +142,79 @@ class Controller
         return $rv;
     }
 
-    public function create_cms_item($item) {
+    public function create_cms_item($item, $feed_id) {
+        $app = $this->app;
+
+        $content = $app['storage']->getContentObject('items');
+        $content->setValues(array(
+            'status' => 'draft',
+            'title' => $item['title'],
+            'url' => $item['url'],
+            'feed_id' => $feed_id,
+        ));
+        $comment = "Scraping";
+        $app['storage']->saveContent($content, $comment);
+
+        $app['log']->add($content->getTitle(), 3, $content, 'save content');
     }
 
-    public function scrape_feed($url) {
+    public function scrape_feed($url, $feed_id) {
         $count = 0;
         foreach ($this->fetch_feed($url) as $item) {
-            if($this->visit_item($item)) {
+            if($this->visit_item($item, $feed_id)) {
                 $count += 1;
             }
         }
         return $count;
     }
 
+    public function save_feed_error($id, $error) {
+        $db = $this->app['db'];
+        $table_name = $this->get_db_prefix() . 'feeds';
+        $db->executeUpdate(
+            'UPDATE ' . $table_name . ' SET errors = ? WHERE id = ?',
+            array($error, $id));
+    }
+
     public function scrape_all() {
-        $url_list = array(
-            'https://medium.com/feed/message',
-        );
+        $db = $this->app['db'];
+        $table_name = $this->get_db_prefix() . 'feeds';
+        $stmt = $db->prepare('SELECT id, url FROM ' . $table_name);
+        $stmt->execute();
 
         $rv = array();
-        foreach($url_list as $url) {
-            $count = $this->scrape_feed($url);
-            $rv[] = array("url" => $url, "count" => $count);
+        foreach($stmt->fetchAll() as $feed) {
+            $id = $feed['id'];
+            $url = $feed['url'];
+            $error = "";
+            try {
+                $result = $this->scrape_feed($url, $id);
+            }
+            catch(\Exception $e) {
+                $result = 'error';
+                $error = $e->getMessage();
+            }
+            $this->save_feed_error($id, $error);
+            $rv[] = array("url" => $url, "result" => $result);
         }
         return $rv;
     }
 
     public function view(Silex\Application $app, Request $request) {
+        if($request->getMethod() != 'POST') {
+            return "<form method=post><input name=key><input type=submit></form>";
+        }
+        $scraping_key = $this->app['config']->get('general/scraping_key');
+        if($request->get('key') != $scraping_key) {
+            $app->abort(403, "Invalid API key");
+        }
+
         $report = "";
         foreach($this->scrape_all() as $feed) {
-            $report .= "" . $feed['count'] . " " . $feed['url'] . "\n";
+            $report .= "" . $feed['result'] . " " . $feed['url'] . "\n";
         }
         ;
-        return "<code><pre>" . $report . "</code></pre>\n";
+        return "<code><pre>\n" . $report . "</code></pre>\n";
     }
 
 }
