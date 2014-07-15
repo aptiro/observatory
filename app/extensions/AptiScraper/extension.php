@@ -107,7 +107,7 @@ class Controller
         return $rv;
     }
 
-    public function visit_item($item) {
+    public function visit_item($item, $feed_id) {
         $table_name = $this->get_table_name();
         $rv = false;
 
@@ -129,7 +129,7 @@ class Controller
                     'item' => $item['id'],
                     'time' => date('Y-m-d H:i:s'),
                 ));
-                $this->create_cms_item($item);
+                $this->create_cms_item($item, $feed_id);
                 $rv = true;
             }
 
@@ -142,7 +142,7 @@ class Controller
         return $rv;
     }
 
-    public function create_cms_item($item) {
+    public function create_cms_item($item, $feed_id) {
         $app = $this->app;
 
         $content = $app['storage']->getContentObject('items');
@@ -150,6 +150,7 @@ class Controller
             'status' => 'draft',
             'title' => $item['title'],
             'url' => $item['url'],
+            'feed_id' => $feed_id,
         ));
         $comment = "Scraping";
         $app['storage']->saveContent($content, $comment);
@@ -157,10 +158,10 @@ class Controller
         $app['log']->add($content->getTitle(), 3, $content, 'save content');
     }
 
-    public function scrape_feed($url) {
+    public function scrape_feed($url, $feed_id) {
         $count = 0;
         foreach ($this->fetch_feed($url) as $item) {
-            if($this->visit_item($item)) {
+            if($this->visit_item($item, $feed_id)) {
                 $count += 1;
             }
         }
@@ -187,7 +188,7 @@ class Controller
             $url = $feed['url'];
             $error = "";
             try {
-                $result = $this->scrape_feed($url);
+                $result = $this->scrape_feed($url, $id);
             }
             catch(\Exception $e) {
                 $result = 'error';
