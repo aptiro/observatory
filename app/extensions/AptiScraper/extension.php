@@ -83,8 +83,6 @@ class Controller
         $feed->init();
         $feed->handle_content_type();
 
-        echo "feed title: " . $feed->get_title();
-
         $rv = array();
 
         foreach ($feed->get_items() as $item) {
