@@ -179,7 +179,7 @@ class Controller
 
     public function view(Silex\Application $app, Request $request) {
         if($request->getMethod() != 'POST') {
-            $app->abort(405, "please use POST");
+            return "<form method=post><input name=key><input type=submit></form>";
         }
         $scraping_key = $this->app['config']->get('general/scraping_key');
         if($request->get('key') != $scraping_key) {
