@@ -83,14 +83,13 @@ class Controller
         $feed->init();
         $feed->handle_content_type();
 
-        echo "feed title: " . $feed->get_title();
-
         $rv = array();
 
         foreach ($feed->get_items() as $item) {
             $rv[] = array(
                 'feed' => $url,
                 'id' => $item->get_id(),
+                'url' => $item->get_permalink(),
                 'title' => $item->get_title(),
                 'description' => $item->get_description(),
                 'date' => $item->get_date('j F Y | g:i a'),
@@ -136,6 +135,18 @@ class Controller
     }
 
     public function create_cms_item($item) {
+        $app = $this->app;
+
+        $content = $app['storage']->getContentObject('items');
+        $content->setValues(array(
+            'status' => 'draft',
+            'title' => $item['title'],
+            'url' => $item['url'],
+        ));
+        $comment = "Scraping";
+        $app['storage']->saveContent($content, $comment);
+
+        $app['log']->add($content->getTitle(), 3, $content, 'save content');
     }
 
     public function scrape_feed($url) {
@@ -162,6 +173,14 @@ class Controller
     }
 
     public function view(Silex\Application $app, Request $request) {
+        if($request->getMethod() != 'POST') {
+            $app->abort(405, "please use POST");
+        }
+        $scraping_key = $this->app['config']->get('general/scraping_key');
+        if($request->get('key') != $scraping_key) {
+            $app->abort(403, "Invalid API key");
+        }
+
         $report = "";
         foreach($this->scrape_all() as $feed) {
             $report .= "" . $feed['count'] . " " . $feed['url'] . "\n";
