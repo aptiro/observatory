@@ -89,6 +89,7 @@ class Controller
             $rv[] = array(
                 'feed' => $url,
                 'id' => $item->get_id(),
+                'url' => $item->get_permalink(),
                 'title' => $item->get_title(),
                 'description' => $item->get_description(),
                 'date' => $item->get_date('j F Y | g:i a'),
@@ -134,6 +135,18 @@ class Controller
     }
 
     public function create_cms_item($item) {
+        $app = $this->app;
+
+        $content = $app['storage']->getContentObject('items');
+        $content->setValues(array(
+            'status' => 'draft',
+            'title' => $item['title'],
+            'url' => $item['url'],
+        ));
+        $comment = "Scraping";
+        $app['storage']->saveContent($content, $comment);
+
+        $app['log']->add($content->getTitle(), 3, $content, 'save content');
     }
 
     public function scrape_feed($url) {
