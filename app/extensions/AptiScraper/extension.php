@@ -186,7 +186,7 @@ class Controller
             $report .= "" . $feed['count'] . " " . $feed['url'] . "\n";
         }
         ;
-        return "<code><pre>" . $report . "</code></pre>\n";
+        return "<code><pre>\n" . $report . "</code></pre>\n";
     }
 
 }
