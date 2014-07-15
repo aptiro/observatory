@@ -86,6 +86,11 @@ class Controller
         $feed->init();
         $feed->handle_content_type();
 
+        $error = $feed->error();
+        if($error) {
+            throw new \Exception($error);
+        }
+
         $rv = array();
 
         foreach ($feed->get_items() as $item) {
@@ -162,17 +167,34 @@ class Controller
         return $count;
     }
 
+    public function save_feed_error($id, $error) {
+        $db = $this->app['db'];
+        $table_name = $this->get_db_prefix() . 'feeds';
+        $db->executeUpdate(
+            'UPDATE ' . $table_name . ' SET errors = ? WHERE id = ?',
+            array($error, $id));
+    }
+
     public function scrape_all() {
         $db = $this->app['db'];
         $table_name = $this->get_db_prefix() . 'feeds';
-        $stmt = $db->prepare('SELECT url FROM ' . $table_name);
+        $stmt = $db->prepare('SELECT id, url FROM ' . $table_name);
         $stmt->execute();
 
         $rv = array();
         foreach($stmt->fetchAll() as $feed) {
+            $id = $feed['id'];
             $url = $feed['url'];
-            $count = $this->scrape_feed($url);
-            $rv[] = array("url" => $url, "count" => $count);
+            $error = "";
+            try {
+                $result = $this->scrape_feed($url);
+            }
+            catch(\Exception $e) {
+                $result = 'error';
+                $error = $e->getMessage();
+            }
+            $this->save_feed_error($id, $error);
+            $rv[] = array("url" => $url, "result" => $result);
         }
         return $rv;
     }
@@ -188,7 +210,7 @@ class Controller
 
         $report = "";
         foreach($this->scrape_all() as $feed) {
-            $report .= "" . $feed['count'] . " " . $feed['url'] . "\n";
+            $report .= "" . $feed['result'] . " " . $feed['url'] . "\n";
         }
         ;
         return "<code><pre>\n" . $report . "</code></pre>\n";
