@@ -105,7 +105,40 @@ items:
         weight:
             type: integer
             postfix: 'A number between 0 - 100. 0 = Least Important, 100 = Most Important'
-    taxonomy: [ tags, featured, publisher ]
+    relations:
+        subdomains:
+            multiple: true
+            label: Subdomain
+            order: weight
+
+
+domains:
+    name: Domains
+    singular_name: Domain
+    fields:
+        title:
+            type: text
+            class: large
+        weight:
+            type: integer
+            postfix: 'The smaller the number, the higher in the list'
+    sort: weight ASC
+
+subdomains:
+    name: Subdomains
+    singular_name: Subdomain
+    fields:
+        title:
+            type: text
+            class: large
+        weight:
+            type: integer
+            postfix: 'The smaller the number, the higher in the list'
+    relations:
+        domains:
+            multiple: false
+            label: Parent Domain
+            order: weight
 
 feeds:
     name: Feeds
