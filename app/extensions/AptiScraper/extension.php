@@ -173,6 +173,14 @@ class Controller
     }
 
     public function view(Silex\Application $app, Request $request) {
+        if($request->getMethod() != 'POST') {
+            $app->abort(405, "please use POST");
+        }
+        $scraping_key = $this->app['config']->get('general/scraping_key');
+        if($request->get('key') != $scraping_key) {
+            $app->abort(403, "Invalid API key");
+        }
+
         $report = "";
         foreach($this->scrape_all() as $feed) {
             $report .= "" . $feed['count'] . " " . $feed['url'] . "\n";
