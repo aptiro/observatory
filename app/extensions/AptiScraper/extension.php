@@ -66,9 +66,12 @@ class Controller
         $this->app = $app;
     }
 
+    public function get_db_prefix() {
+        return $this->app['config']->get('general/database/prefix', "bolt_");
+    }
+
     public function get_table_name() {
-        $prefix = $this->app['config']->get('general/database/prefix', "bolt_");
-        return $prefix . "aptiscraper_visited";
+        return $this->get_db_prefix() . "aptiscraper_visited";
     }
 
     public function fetch_feed($url) {
@@ -160,12 +163,14 @@ class Controller
     }
 
     public function scrape_all() {
-        $url_list = array(
-            'https://medium.com/feed/message',
-        );
+        $db = $this->app['db'];
+        $table_name = $this->get_db_prefix() . 'feeds';
+        $stmt = $db->prepare('SELECT url FROM ' . $table_name);
+        $stmt->execute();
 
         $rv = array();
-        foreach($url_list as $url) {
+        foreach($stmt->fetchAll() as $feed) {
+            $url = $feed['url'];
             $count = $this->scrape_feed($url);
             $rv[] = array("url" => $url, "count" => $count);
         }
