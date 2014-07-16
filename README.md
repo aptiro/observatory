@@ -19,6 +19,7 @@ make changes in `app/config/config.yml`:
     enabled_extensions:
       - AptiScraper
       - AptiMainMenu
+      - AptiContent
 
     debug: false # for production
     scraping_key: asdf

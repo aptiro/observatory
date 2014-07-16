@@ -128,6 +128,7 @@ domains:
             type: integer
             postfix: 'The smaller the number, the higher in the list'
     sort: weight ASC
+    class: \AptiContent\Domain
 
 subdomains:
     name: Subdomains

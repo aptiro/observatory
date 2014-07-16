@@ -5,7 +5,15 @@
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a HIGHER priority than the default routes.
 
+subdomain:
+  path: /subdomain/{slug}
+  defaults: { _controller: 'Bolt\Controllers\Frontend::record', 'contenttypeslug': 'subdomain' }
+  contenttype: subdomain
 
+controllerDomainController:
+  path: /domain/{slug}
+  defaults: { _controller: 'Bolt\Controllers\Frontend::record', 'contenttypeslug': 'domain' }
+  contenttype: domain
 
 # ------------------------------------------------------------------------------
 # These are the routes defining the default behaviour of Bolt's frontend. 
@@ -46,11 +54,6 @@ contentlisting:
 
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.
-
-subdomain:
-  path: /subdomain/{slug}
-  defaults: { _controller: 'Bolt\Controllers\Frontend::record', 'contenttypeslug': 'subdomain' }
-#  contenttype: subdomain
 
 # ------------------------------------------------------------------------------
 # Routes examples:

@@ -24,7 +24,7 @@ class Extension extends \Bolt\BaseExtension
 
     public function twigMainmenu()
     {
-        return $this->controller->twigMainmenu();
+        return $this->controller->twigMainMenu();
     }
 
 }
@@ -61,7 +61,7 @@ class Controller
                     $submenu[] = array('label' => $subdomain['title'], 'path' => '/subdomain/' . $subdomain['slug']);
                 }
             }
-            $menu[] = array('label' => $domain['title'], 'path' => '/domain/' . $domain['slug'], 'submenu' => $submenu);
+            $menu[] = array('label' => $domain['title'], 'path' => '/domain/' . $domain['slug'], 'submenu' => !empty($submenu) ? $submenu : false);
         }
         $menuLast = array(
             array('label' => 'Startups', 'path' => '/page/startups'),
@@ -77,51 +77,7 @@ class Controller
             }
         }
 
-        $html  = '<ul class="nav nav-pills nav-stacked">';
-        foreach($menu as $item) {
-            $html .= '<li class="' . $item['class'] . '">';
-            $html .= '<a href="' . $item['path'] . '">';
-            $html .= $item['label'];
-            $html .= !empty($item['submenu']) ? '<span class="caret"></span>' : '';
-            $html .= '</a>';
-            if(!empty($item['submenu'])) {
-                $html .= '<ul class="dropdown-menu role="menu">';
-                foreach($item['submenu'] as $subitem) {
-                    $html .= '<li class="' . $subitem['class'] . '">';
-                    $html .= '<a href="' . $subitem['path'] . '">';
-                    $html .= $subitem['label'];
-                    $html .= '</a></li>';
-                }
-                $html .= '</ul>';
-            }
-            $html .= "</li>\n";
-        }
-        $html .= '</ul>';
-/*
-    {% for item in menu %}
-    <li class="{{ item.class }} {% if item.submenu is defined %}dropdown{% endif %}">
-        <a href="{{ item.link }}">
-            {{ item.label }}
-            {% if item.submenu is defined %}
-                <span class="caret"></span>
-            {% endif %}
-        </a>
-        {% if item.submenu is defined %}
-            <ul class="dropdown-menu" role="menu">
-                {% for item in item.submenu %}
-                    <li class="{{ item.class }}">
-                        <a href="{{ item.link }}">
-                            {{ item.label }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
-*/
-        return new \Twig_Markup($html, 'UTF-8');
+        return $menu;
     }
 
 }
