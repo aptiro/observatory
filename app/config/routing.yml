@@ -122,5 +122,9 @@ contentlisting:
 #   defaults: { _controller: 'Bolt\Controllers\Frontend::template', template: 'static-page' }
 
 apti_overview:
-  path:               /overview
+  path:               /overview/
   defaults:           { _controller: 'AptiContent\Overview::index' }
+
+apti_overview_more:
+  path:               /overview/{domain}/{country}
+  defaults:           { _controller: 'AptiContent\Overview::more' }

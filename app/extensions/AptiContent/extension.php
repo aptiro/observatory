@@ -129,4 +129,32 @@ class Overview extends \Bolt\Content
             'item_map' => $item_map,
         ));
     }
+
+    public static function more(Request $request, Silex\Application $app,
+                                $domain, $country) {
+        $query = (
+            "SELECT bolt_items.*, bolt_domains.title as domain FROM bolt_items ".
+            "LEFT JOIN bolt_relations ".
+            "  ON bolt_relations.from_contenttype = 'items' ".
+            "  AND bolt_items.id = bolt_relations.from_id ".
+            "LEFT JOIN bolt_domains ".
+            "  ON bolt_relations.to_contenttype = 'domains' ".
+            "  AND bolt_relations.to_id = bolt_domains.id ".
+            "WHERE bolt_items.status = 'published' ".
+            "AND bolt_items.country = :country ".
+            "AND bolt_domains.title = :domain"
+        );
+        $stmt = $app['db']->prepare($query);
+        $stmt->bindValue('country', $country);
+        $stmt->bindValue('domain', $domain);
+        $stmt->execute();
+        $item_list = $stmt->fetchAll();
+
+        $app['twig.loader.filesystem']->addPath(__DIR__);
+        return $app['render']->render('apti_overview_more.twig', array(
+            'item_list' => $item_list,
+            'domain' => $domain,
+            'country' => $country,
+        ));
+    }
 }
