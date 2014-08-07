@@ -16,6 +16,9 @@ update database schema:
 
 make changes in `app/config/config.yml`:
 ```yaml
+    theme: default
+    timezone: EET
+
     enabled_extensions:
       - AptiScraper
       - AptiMainMenu
