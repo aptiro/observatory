@@ -1,0 +1,35 @@
+{% include '_header.twig' %}
+
+<h1>Overview</h1>
+
+<table class="table">
+
+  <thead>
+    <th>Country</th>
+    {% for domain in domain_list %}
+      <th>{{ domain }}</th>
+    {% endfor %}
+  </thead>
+
+  {% for country in country_list %}
+  <tr>
+    <th>{{ country }}</th>
+    {% for domain in domain_list %}
+      <td>
+        <ul class="list-unstyled">
+          {% for item in item_map[country][domain] %}
+            <li>
+              <a href="{{ item.url }}">
+                {{ item.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+
+</table>
+
+{% include '_footer.twig' %}

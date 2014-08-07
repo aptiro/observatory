@@ -120,3 +120,7 @@ contentlisting:
 # templatebinding:
 #   path:     /static-page/
 #   defaults: { _controller: 'Bolt\Controllers\Frontend::template', template: 'static-page' }
+
+apti_overview:
+  path:               /overview
+  defaults:           { _controller: 'AptiContent\Overview::index' }

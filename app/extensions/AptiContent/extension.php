@@ -3,6 +3,7 @@
 
 namespace AptiContent;
 use Silex;
+use Symfony\Component\HttpFoundation\Request;
 
 class Extension extends \Bolt\BaseExtension
 {
@@ -85,3 +86,47 @@ class Subdomain extends \Bolt\Content
     }
 }
 
+class Overview extends \Bolt\Content
+{
+    public static function index(Request $request, Silex\Application $app) {
+        $query = "SELECT DISTINCT country FROM bolt_items where country != ''";
+        $country_list = array();
+        foreach($app['db']->fetchAll($query) as $row) {
+            $country_list[] = $row['country'];
+        }
+        sort($country_list);
+
+        $query = "SELECT DISTINCT title FROM bolt_domains";
+        $domain_list = array();
+        foreach($app['db']->fetchAll($query) as $row) {
+            $domain_list[] = $row['title'];
+        }
+        sort($domain_list);
+
+        $query = (
+            "SELECT bolt_items.*, bolt_domains.title as domain FROM bolt_items ".
+            "LEFT JOIN bolt_relations ".
+            "  ON bolt_relations.from_contenttype = 'items' ".
+            "  AND bolt_items.id = bolt_relations.from_id ".
+            "LEFT JOIN bolt_domains ".
+            "  ON bolt_relations.to_contenttype = 'domains' ".
+            "  AND bolt_relations.to_id = bolt_domains.id ".
+            "WHERE bolt_items.status = 'published'"
+        );
+        $item_map = array();
+        foreach($app['db']->fetchAll($query) as $item) {
+            $country = $item['country'];
+            $domain = $item['domain'];
+            if($country && $domain) {
+                $item_map[$country][$domain][] = $item;
+            }
+        }
+
+        $app['twig.loader.filesystem']->addPath(__DIR__);
+        return $app['render']->render('apti_overview.twig', array(
+            'country_list' => $country_list,
+            'domain_list' => $domain_list,
+            'item_map' => $item_map,
+        ));
+    }
+}
