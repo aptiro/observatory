@@ -108,9 +108,9 @@ items:
         feed_id:
             type: integer
     relations:
-        subdomains:
+        domains:
             multiple: true
-            label: Subdomain
+            label: Domain
             order: weight
 
 
@@ -127,30 +127,12 @@ domains:
         weight:
             type: integer
             postfix: 'The smaller the number, the higher in the list'
-    sort: weight ASC
-    class: \AptiContent\Domain
-
-subdomains:
-    name: Subdomains
-    singular_name: Subdomain
-    fields:
-        title:
-            type: text
-            class: large
-        slug:
-            type: slug
-            uses: title
-        weight:
-            type: integer
-            postfix: 'The smaller the number, the higher in the list'
     relations:
-        domains:
-            multiple: false
-            label: Parent Domain
-            order: weight
         items:
             multiple: true
             label: Items
+    sort: weight ASC
+    class: \AptiContent\Domain
 
 feeds:
     name: Feeds
