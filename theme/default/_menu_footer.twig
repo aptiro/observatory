@@ -1,7 +1,34 @@
-<ul class="nav nav-pills">
-{% for item in menu %}
-    <li>
-        <a href="{{ item.link }}">{{item.label}}</a>
-    </li>
-{% endfor %}
-</ul>
+
+<div class="row">
+    <div class="col-sm-6 flag-footer">
+        <div class="flag-footer flag">
+            <img src="/theme/default/img/flag.jpg" alt="European Union" />
+        </div>
+        <div class="flag-footer text">
+            <p><strong>This project has received funding<br>from the European Union’s<br>Seventh Framework Programme for research,<br>technological development and demonstration<br>under grant agreement no 612345.</strong></p>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        
+    </div>
+    <div class="col-sm-4">
+        <ul class="social-links">
+            <li>
+                <p class="social_media">Social media</p>
+            </li>
+
+            <li>
+                <a class="linkedin" href="https://www.linkedin.com/groups/MAPPING-Internet-8108457/about" target="_blank">
+                <img src="/theme/default/img/linkedin.jpg">
+            </li>
+
+            <li>
+                <a class="facebook" href="#" target="_blank">
+                <img src="/theme/default/img/facebook.png">
+            </li>
+        <ul class="nav nav-pills">
+        {% for item in menu %}
+        {% endfor %}
+        </ul>
+    </div>
+</div>

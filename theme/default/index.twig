@@ -11,8 +11,17 @@
     {% else %}
         {% if loop.index == 2 %}
             <div class="row">
+
+            <div class="news-menu">
+                <p>News</p>
+            </div>
         {% endif %}
+
+        
+
         <div class="col-sm-6">
+            
+
             {% include '_item_panel.twig' with { item: item } %}
         </div>
     {% endif %}
