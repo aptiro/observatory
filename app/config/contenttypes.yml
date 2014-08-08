@@ -101,7 +101,7 @@ items:
             default: null
         country:
             type: select
-            values: [ Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, United Kingdom ]
+            values: [ AT, BE, BG, HR, CY, CZ, DK, EE, FI, FR, DE, GR, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE, UK ]
         weight:
             type: integer
             postfix: 'A number between 0 - 100. 0 = Least Important, 100 = Most Important'
