@@ -112,6 +112,7 @@ items:
             multiple: true
             label: Domain
             order: weight
+    taxonomy: [ tags ]
 
 
 domains:

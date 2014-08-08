@@ -1,28 +1,36 @@
 {% set menu = mainmenu() %}
 <nav class="navbar navbar-default">
-    <div class="container">
-        <ul class="nav navbar-nav">
-            {% for item in menu %}
-            <li class="{{ item.class }}">
-                <a href="{{ item.path }}">
-                    {{ item.label }}
-                    {% if item.submenu %}
-                        <span class="caret"></span>
-                    {% endif %}
-                </a>
+    <ul class="nav navbar-nav">
+        {% for item in menu %}
+        <li class="{{ item.class }}">
+            <a href="{{ item.path }}">
+                {{ item.label }}
                 {% if item.submenu %}
-                    <ul class="dropdown-menu" role="menu">
-                        {% for item in item.submenu %}
-                            <li class="{{ item.class }}">
-                                <a href="{{ item.path }}">
-                                    {{ item.label }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    <span class="caret"></span>
                 {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+            </a>
+            {% if item.submenu %}
+                <ul class="dropdown-menu" role="menu">
+                    {% for item in item.submenu %}
+                        <li class="{{ item.class }}">
+                            <a href="{{ item.path }}">
+                                {{ item.label }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+        {% endfor %}
+        <li class="pull-right">
+            <form method="get" action="/search" id="searchform" enctype="text/plain" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="search" value="" placeholder="Search for ..." class="form-control">
+                    <button class="btn btn-success">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+            </form>
+        </li>
+    </ul>
 </nav>
