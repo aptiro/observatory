@@ -3,6 +3,9 @@
         <span class="blueArrow"></span>
         {{ item.title }}
     </div>
+    <div class="panel-date">
+        {{ item.datepublish|date("D j M Y, H:i") }}
+    </div>
     <div class="panel-body">
         {{ item.description }}
     </div>

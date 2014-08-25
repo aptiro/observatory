@@ -105,6 +105,10 @@ footer .nav.nav-pills li {
     background: url(/theme/default/img/arrow.png) no-repeat;
 }
 
+.mapping-sidebar {
+    text-align: center;
+}
+
 .flag-footer .flag {
     float: left;
 }
@@ -132,12 +136,12 @@ p.social_media {
     text-align: left;
 }
 
-.linkedin {
+.by {
     text-align: left;
-    float: left;
+    float: right;
 }
 
-.facebook {
+.creativecommons {
     text-align: left;
     float: left;
     margin-left: 15px;
@@ -164,6 +168,14 @@ ul, menu, dir {
 
 .panel-default {
     border-color: transparent;
+}
+
+.panel-date {
+    text-align: left;
+    font-size: 10px;
+    padding-left: 35px;
+    margin-left: 15px;
+    color: #9b9898;
 }
 
 .panel-footer {
