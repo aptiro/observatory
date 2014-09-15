@@ -41,34 +41,12 @@ class Controller
         $menu = array(
             array('label' => 'Home', 'path' => '/', 'class' => 'first'),
             array('label' => 'Overview', 'path' => '/overview'),
-        );
-
-        $sqlDomains = "SELECT * FROM bolt_domains ORDER BY weight ASC";
-        $domains = $this->app['db']->fetchAll($sqlDomains);
-
-        foreach($domains as $domain) {
-            // Declaring it here as it might be used later...
-            $submenu = array();
-            $menu[] = array(
-                'label' => $domain['title'],
-                'path' => '/domain/' . $domain['slug'],
-                'submenu' => !empty($submenu) ? $submenu : false
-            );
-        }
-        $menuLast = array(
+            array('label' => 'Privacy', 'path' => '/page/privacy'),
+            array('label' => 'IPR', 'path' => '/page/ipr'),
+            array('label' => 'IG', 'path' => '/page/ig'),
             array('label' => 'Startups', 'path' => '/page/startups'),
-            array('label' => 'Suggest', 'path' => '/page/suggest')
+            array('label' => 'Suggest', 'path' => '/page/suggest'),
         );
-        foreach($menuLast as $item) {
-            array_push($menu, $item);
-        }
-
-        foreach($menu as $k => $item) {
-            if(!empty($item['submenu'])) {
-                $menu[$k]['class'] = 'dropdown';
-            }
-        }
-
         return $menu;
     }
 
