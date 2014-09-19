@@ -51,8 +51,8 @@ templates. 'entry.twig' is much more straightforward.
                 </div>
                 <p>{{ value.formatted_address }}</p>
 
-            {% elseif record.fieldtype(key) not in ['templateselect'] and value != "" %}
-
+            {% elseif record.fieldtype(key) not in ['templateselect'] and value != "" and key != 'ownerid' %}
+                
                 <div>
                     {{ attribute(record, key) }}
                 </div>
