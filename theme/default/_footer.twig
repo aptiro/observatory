@@ -1,14 +1,15 @@
             </div>
+            {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+            {% if currentPath == '/' %}
             <div class="col-sm-4 mapping-sidebar">
-                <a href="#" target="_blank">
-                <img src="/theme/default/img/mapping-sidebar.png">
+                homepage sidebar
             </div>
+            {% endif %}
         </div> 
-                <footer id="page-footer" role="navigation">
-                </footer>   
+        <footer id="page-footer" role="navigation">
+        </footer>   
     <footer class="clearfix">
         {{ menu('footer', '_menu_footer.twig') }}
-
     </footer>    
     </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
@@ -16,4 +17,3 @@
 </body>
 	
 </html>
-

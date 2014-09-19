@@ -204,6 +204,14 @@ ul, menu, dir {
     background-color: transparent;
 }
 
+h1 a img {
+    height: 110px;
+}
+
+h1 a:hover {
+    text-decoration: none;
+}
+
 h1 sup {
     font-size: 12px;
     top: -2em;
