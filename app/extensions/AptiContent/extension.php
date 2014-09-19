@@ -114,10 +114,11 @@ class Overview extends \Bolt\Content
             "WHERE bolt_items.status = 'published'"
         );
         $item_map = array();
-        foreach($app['db']->fetchAll($query) as $item) {
-            $country = $item['country'];
-            $domain = $item['domain'];
+        foreach($app['db']->fetchAll($query) as $row) {
+            $country = $row['country'];
+            $domain = $row['domain'];
             if($country && $domain) {
+                $item = $app['storage']->getContent('items', array('id' => $row['id']));
                 $item_map[$country][$domain][] = $item;
             }
         }
