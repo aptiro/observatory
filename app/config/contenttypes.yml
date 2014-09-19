@@ -112,7 +112,7 @@ items:
             multiple: true
             label: Domain
             order: weight
-    taxonomy: [ tags ]
+    taxonomy: [ tags, stakeholder ]
 
 
 domains:

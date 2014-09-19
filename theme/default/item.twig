@@ -6,14 +6,23 @@
 
     <p>{{ record.description }}</p>
 
-    <p>country: {{ record.country }}</p>
+    <p>Country: {{ record.country }}</p>
 
     <p>
-      domains:
+      Domains:
       {% for domain in record.related('domains') %}
         {{ domain.title }}
       {% endfor %}
     </p>
+
+        {% if record.taxonomy.stakeholder %}
+        <p>
+            Stakeholder:
+            {% for sk in record.taxonomy.stakeholder %}
+                <span class="label label-info">{{ sk }}</span>
+            {% endfor %}
+        </p>
+        {% endif %}
 
     {% include '_recordfooter.twig' with {record: record} %}
 

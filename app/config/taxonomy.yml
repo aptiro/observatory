@@ -23,3 +23,12 @@ categories:
     behaves_like: categories
     multiple: true
     options: [ news, events, movies, music, books, life, love, fun ]
+
+stakeholder:
+    name: Stakeholder
+    slug: stakeholder
+    singular_name: Stakeholde
+    singular_slug: stakeholder
+    behaves_like: categories
+    multiple: false
+    options: [Government, Civil Society, Industry, Academia, European Bodies]
