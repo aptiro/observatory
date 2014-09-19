@@ -48,8 +48,18 @@ class Controller
                     array('label' => 'Privacy 3', 'path' => '/page/privacy-3'),
                 )
             ),
-            array('label' => 'IPR', 'path' => '/page/ipr'),
-            array('label' => 'IG', 'path' => '/page/ig'),
+            array('label' => 'IPR', 'path' => '/page/ipr', 'class' => 'dropdown',
+                'submenu' => array(
+                    array('label' => 'IPR 1', 'path' => '/page/ipr-1'),
+                    array('label' => 'IPR 2', 'path' => '/page/ipr-2'),
+                    array('label' => 'IPR 3', 'path' => '/page/ipr-3'),
+                )),
+            array('label' => 'IG', 'path' => '/page/ig', 'class' => 'dropdown',
+                'submenu' => array(
+                    array('label' => 'IG 1', 'path' => '/page/ig-1'),
+                    array('label' => 'IG 2', 'path' => '/page/ig-2'),
+                    array('label' => 'IG 3', 'path' => '/page/ig-3'),
+                )),
             array('label' => 'Startups', 'path' => '/page/startups'),
             array('label' => 'Suggest', 'path' => '/page/suggest'),
         );
