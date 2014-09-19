@@ -41,7 +41,13 @@ class Controller
         $menu = array(
             array('label' => 'Home', 'path' => '/', 'class' => 'first'),
             array('label' => 'Overview', 'path' => '/overview'),
-            array('label' => 'Privacy', 'path' => '/page/privacy'),
+            array('label' => 'Privacy', 'path' => '/page/privacy', 'class' => 'dropdown',
+                'submenu' => array(
+                    array('label' => 'Privacy 1', 'path' => '/page/privacy-1'),
+                    array('label' => 'Privacy 2', 'path' => '/page/privacy-2'),
+                    array('label' => 'Privacy 3', 'path' => '/page/privacy-3'),
+                )
+            ),
             array('label' => 'IPR', 'path' => '/page/ipr'),
             array('label' => 'IG', 'path' => '/page/ig'),
             array('label' => 'Startups', 'path' => '/page/startups'),
