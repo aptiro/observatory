@@ -203,3 +203,8 @@ ul, menu, dir {
     color: #1e1c1c;
     background-color: transparent;
 }
+
+h1 sup {
+    font-size: 12px;
+    top: -2em;
+}
