@@ -44,10 +44,10 @@
                         $.each(data, function(index, item){
                             results.push( item.slug );
                         });
-                        $('#taxonomy-{{taxonomy.slug}}').select2({tags: results, minimumInputLength: 1, tokenSeparators: [",", " "]});
+                        $('#taxonomy-{{taxonomy.slug}}').select2({tags: results, minimumInputLength: 1, tokenSeparators: [","]});
                     },
                     error: function() {
-                        $('#taxonomy-{{taxonomy.slug}}').select2({tags: [], minimumInputLength: 1, tokenSeparators: [",", " "]});
+                        $('#taxonomy-{{taxonomy.slug}}').select2({tags: [], minimumInputLength: 1, tokenSeparators: [","]});
                     }
                 });
 
