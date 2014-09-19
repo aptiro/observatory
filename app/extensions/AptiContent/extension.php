@@ -4,6 +4,7 @@
 namespace AptiContent;
 use Silex;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Intl\Intl;
 
 class Extension extends \Bolt\BaseExtension
 {
@@ -36,7 +37,14 @@ class Extension extends \Bolt\BaseExtension
      */
     function initialize()
     {
+        $this->addTwigFunction('country_name', 'twigCountryName');
+    }
 
+    function twigCountryName($code) {
+        $countries = Intl::getRegionBundle()->getCountryNames();
+        $name = $countries[$code];
+        if(! $name) { $name = $code; }
+        return $name;
     }
 }
 
