@@ -133,7 +133,7 @@ class Overview extends \Bolt\Content
     public static function more(Request $request, Silex\Application $app,
                                 $domain, $country) {
         $query = (
-            "SELECT bolt_items.*, bolt_domains.title as domain FROM bolt_items ".
+            "SELECT bolt_items.* FROM bolt_items ".
             "LEFT JOIN bolt_relations ".
             "  ON bolt_relations.from_contenttype = 'items' ".
             "  AND bolt_items.id = bolt_relations.from_id ".
@@ -148,7 +148,11 @@ class Overview extends \Bolt\Content
         $stmt->bindValue('country', $country);
         $stmt->bindValue('domain', $domain);
         $stmt->execute();
-        $item_list = $stmt->fetchAll();
+
+        $item_list = array();
+        foreach($stmt->fetchAll() as $row) {
+          $item_list[] = $app['storage']->getContent('items', array('id' => $row['id']));
+        }
 
         $app['twig.loader.filesystem']->addPath(__DIR__);
         return $app['render']->render('apti_overview_more.twig', array(
