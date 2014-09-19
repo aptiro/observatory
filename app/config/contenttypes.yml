@@ -101,7 +101,7 @@ items:
             default: null
         country:
             type: select
-            values: [ AT, BE, BG, HR, CY, CZ, DK, EE, FI, FR, DE, GR, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE, UK ]
+            values: [ AT, BE, BG, HR, CY, CZ, DK, EE, EU, FI, FR, DE, Global, GR, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE, UK ]
         weight:
             type: integer
             postfix: 'A number between 0 - 100. 0 = Least Important, 100 = Most Important'
