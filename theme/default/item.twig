@@ -4,7 +4,14 @@
 
     <h1><a href="{{ record.url }}">{{ record.title }}</a></h1>
 
-    <p>{{ record.description }}</p>
+    <blockquote>
+      <p>{{ record.description }}</p>
+      <footer>
+        {% setcontent feed = 'feed' where { id: record.feed_id } %}
+        <a href="{{ record.url }}">{{ feed.title }}</a>
+      </footer>
+    </blockquote>
+
 
     <p>country: {{ record.country }}</p>
 
