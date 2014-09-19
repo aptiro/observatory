@@ -8,7 +8,7 @@
       <p>{{ record.description }}</p>
       <footer>
         {% setcontent feed = 'feed' where { id: record.feed_id } %}
-        <a href="{{ record.url }}">{{ feed.title }}</a>
+        Source: <a href="{{ record.url }}">{{ feed.title }}</a>
       </footer>
     </blockquote>
 
@@ -24,13 +24,13 @@
 
     {% if record.taxonomy.stakeholder %}
     <p>
-        Stakeholder:
-        {% for sk in record.taxonomy.stakeholder %}
-            <span class="label label-info">{{ sk }}</span>
-        {% endfor %}
+      Stakeholder:
+      {% for sk in record.taxonomy.stakeholder %}
+        <span class="label label-info">{{ sk }}</span>
+      {% endfor %}
     </p>
     {% endif %}
-    
+
     <p>
       Tags:
       {% for tag in record.taxonomy.tags %}
@@ -38,16 +38,20 @@
       {% endfor %}
     </p>
 
-    {% include '_recordfooter.twig' with {record: record} %}
+    <p class="meta">
+      Posted on {{ record.datepublish|localdate("%A %e %B %Y")}}
+    </p>
 
     <p class="meta">
         {% set previous = record.previous() %}
         {% if previous %}
+            Previous item:
             <a href="{{ previous.link }}">&laquo; {{ previous.title }}</a>
         {% endif %}
 
         {% set next = record.next() %}
         {% if next %}
+            Next item:
             <a href="{{ next.link }}">{{ next.title }} &raquo;</a>
         {% endif %}
     </p>
