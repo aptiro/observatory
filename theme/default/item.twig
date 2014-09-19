@@ -8,6 +8,13 @@
 
     <p>country: {{ record.country }}</p>
 
+    <p>
+      domains:
+      {% for domain in record.related('domains') %}
+        {{ domain.title }}
+      {% endfor %}
+    </p>
+
     {% include '_recordfooter.twig' with {record: record} %}
 
     <p class="meta">
