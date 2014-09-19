@@ -1,0 +1,27 @@
+{% include '_header.twig' %}
+
+<article>
+
+    <h1><a href="{{ record.url }}">{{ record.title }}</a></h1>
+
+    <p>{{ record.description }}</p>
+
+    <p>country: {{ record.country }}</p>
+
+    {% include '_recordfooter.twig' with {record: record} %}
+
+    <p class="meta">
+        {% set previous = record.previous() %}
+        {% if previous %}
+            <a href="{{ previous.link }}">&laquo; {{ previous.title }}</a>
+        {% endif %}
+
+        {% set next = record.next() %}
+        {% if next %}
+            <a href="{{ next.link }}">{{ next.title }} &raquo;</a>
+        {% endif %}
+    </p>
+
+</article>
+
+{% include '_footer.twig' %}
