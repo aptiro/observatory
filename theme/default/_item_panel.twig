@@ -19,7 +19,7 @@
             <div class="taguri">
                 {% if item.taxonomy.tags is defined %}
                 <p>
-                    Tag-uri:
+                    Tags:
                     {% for tag in item.taxonomy.tags %}
                         {{ tag }}{% if not loop.last %}, {% endif %}
                     {% endfor %}
