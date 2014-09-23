@@ -31,4 +31,4 @@ stakeholder:
     singular_slug: stakeholder
     behaves_like: categories
     multiple: false
-    options: [Government, Civil Society, Industry, Academia, European Bodies]
+    options: [Government, Civil Society, Industry, Academia, European Bodies, Judicial]
