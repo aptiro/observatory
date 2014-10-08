@@ -26,13 +26,23 @@
 	<div class="container">
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-9">
                 <h1>
                     <a href="{{ paths.root }}">
                         <img src="/theme/default/img/MAPPING_logo.png" alt="{{ app.config.get('general/sitename') }}"> Policy Observatory
                         <sup>alpha</sup>
                     </a>
                 </h1>
+            </div>
+            <div class="col-sm-3">
+                <form method="get" action="/search" id="searchform" enctype="text/plain" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="search" value="" placeholder="Search for ..." class="form-control">
+                        <button class="btn btn-success">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row">
