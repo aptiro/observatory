@@ -8,8 +8,8 @@
 
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
 
-        {% if record %}
-            <meta name="description" content="{{ record.description|striptags }}">
+        {% if record and record.description|length > 0 %}
+            <meta name="description" content="{{ record.description|striptags|slice(0, 160) }}">
             <meta name="keywords" content="{% for tag in record.taxonomy.tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}">
         {% endif %}
 
