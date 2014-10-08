@@ -41,7 +41,7 @@ class Extension extends \Bolt\BaseExtension
         );
 
         $routes = array(
-            array('', 'view', 'aptiscraperpage'),
+            array('scrape', 'view', 'aptiscraperpage'),
         );
 
         $visitors_routes = $this->app['controllers_factory'];
