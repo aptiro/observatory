@@ -217,3 +217,15 @@ table.table-overview span.date {
     font-size: 12px;
     color: #999;
 }
+
+table.table-overview a.more {
+    font-size: 12px;
+}
+
+table.table-overview ul.list-unstyled {
+    margin: 0;
+}
+
+    table.table-overview ul.list-unstyled li {
+        margin-bottom: 10px;
+    }

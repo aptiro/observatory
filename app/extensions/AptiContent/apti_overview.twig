@@ -16,18 +16,25 @@
     <th>{{ country }}</th>
     {% for domain in domain_list %}
       <td>
-        <ul class="list-unstyled">
-          {% for item in item_map[country][domain] %}
-            <li>
-              <a href="{{ item.link }}">
-                {{ item.title }}
-              </a>
-              <span class="date">{{ item.datepublish|date('F j, Y') }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-
-        <a href="{{ domain }}/{{ country }}">more &raquo;</a>
+          {% if item_map[country][domain]|length > 0 %}
+            <ul class="list-unstyled">
+              {% for item in item_map[country][domain] %}
+                {% if loop.index < 4 %}
+                  <li>
+                    <a href="{{ item.link }}">
+                      {{ item.title }}
+                    </a>
+                    <span class="date">{{ item.datepublish|date('F j, Y') }}</span>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+            {% if item_map[country][domain]|length > 3 %}
+              <a href="{{ domain }}/{{ country }}" class="more">more &raquo;</a>
+            {% endif %}
+          {% else %}
+            No items.
+          {% endif %}
       </td>
     {% endfor %}
   </tr>
