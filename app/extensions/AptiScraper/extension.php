@@ -41,7 +41,7 @@ class Extension extends \Bolt\BaseExtension
         );
 
         $routes = array(
-            array('', 'view', 'aptiscraperpage'),
+            array('scrape', 'view', 'aptiscraper_scrape'),
         );
 
         $visitors_routes = $this->app['controllers_factory'];
@@ -202,7 +202,7 @@ class Controller
 
     public function view(Silex\Application $app, Request $request) {
         if($request->getMethod() != 'POST') {
-            return "<form method=post><input name=key><input type=submit></form>";
+            return "<h2>scrape</h2><form method=post><input name=key><input type=submit></form>";
         }
         $scraping_key = $this->app['config']->get('general/scraping_key');
         if($request->get('key') != $scraping_key) {
