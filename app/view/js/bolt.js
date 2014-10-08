@@ -206,6 +206,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.resize_enabled = true;
     config.entities = false;
     config.extraPlugins = 'codemirror';
+    config.disableNativeSpellChecker = false;
     config.toolbar = [
         { name: 'styles', items: [ 'Format' ] },
         { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike' ] },
