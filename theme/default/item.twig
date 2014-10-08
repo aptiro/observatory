@@ -43,6 +43,15 @@
     </p>
 
     <p class="meta">
+        {% if user %}
+            <a href="/bolt/editcontent/items/{{ record.id }}" target="_blank">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Edit Item
+            </a>
+        {% endif %}
+    </p>
+
+    <p class="meta">
         {% set previous = record.previous() %}
         {% if previous %}
             Previous item:
