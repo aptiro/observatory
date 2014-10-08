@@ -229,3 +229,7 @@ table.table-overview ul.list-unstyled {
     table.table-overview ul.list-unstyled li {
         margin-bottom: 10px;
     }
+
+#searchform {
+    margin-top: 60px;
+}
