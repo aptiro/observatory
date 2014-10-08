@@ -1,27 +1,12 @@
 {% include '_header.twig' %}
 
-<h1>Search results</h1>
+<h2>Search results for <i>{{ search }}</i></h2>
 
 {% if records %}
     {% for record in records %}
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="{{ record.link }}">{{ record.title }}</a>            
-                </div>
-                <div class="panel-body">
-                    {% if record.image!="" %}
-                        <div class="imageholder">
-                            <img src="{{ record.image|thumbnail(120, 120) }}">
-                        </div>
-                    {% endif %}
-                    {{ record.excerpt(300) }}
-                </div>
-                <div class="panel-footer">
-                    {% include '_recordfooter.twig' with {record: record} %}
-                </div>
-            </div>
+            {% include '_item_panel.twig' with { item: record } %}
         </div>
     </div>
     {% endfor %}
