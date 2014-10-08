@@ -212,3 +212,8 @@ h1 sup {
     font-size: 12px;
     top: -2em;
 }
+
+table.table-overview span.date {
+    font-size: 12px;
+    color: #999;
+}

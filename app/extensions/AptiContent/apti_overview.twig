@@ -2,7 +2,7 @@
 
 <h1>Overview</h1>
 
-<table class="table">
+<table class="table table-hover table-striped table-overview">
 
   <thead>
     <th>Country</th>
@@ -22,11 +22,12 @@
               <a href="{{ item.link }}">
                 {{ item.title }}
               </a>
+              <span class="date">{{ item.datepublish|date('F j, Y') }}</span>
             </li>
           {% endfor %}
         </ul>
 
-        <a href="{{ domain }}/{{ country }}">more</a>
+        <a href="{{ domain }}/{{ country }}">more &raquo;</a>
       </td>
     {% endfor %}
   </tr>
