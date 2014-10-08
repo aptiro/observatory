@@ -8,6 +8,11 @@
 
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
 
+        {% if record %}
+            <meta name="description" content="{{ record.description|striptags }}">
+            <meta name="keywords" content="{% for tag in record.taxonomy.tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}">
+        {% endif %}
+
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         
         <link rel="stylesheet" href="{{ paths.theme }}css/site.css"/>
