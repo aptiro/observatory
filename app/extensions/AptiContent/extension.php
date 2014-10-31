@@ -249,7 +249,6 @@ class Overview extends \Bolt\Content
             array('limit' => 10, 'order' => 'datepublish desc'));
         $rv = [];
         foreach($item_list as $item) {
-            error_log(print_r(strtotime($item['datepublish']), true));
             $rv[] = array(
                 'link' => $item->link(),
                 'title' => "".$item['title'],
