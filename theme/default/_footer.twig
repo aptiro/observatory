@@ -2,7 +2,12 @@
             {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
             {% if currentPath == '/' %}
             <div class="col-sm-4 mapping-sidebar">
-                homepage sidebar
+                {% set tags = tagCloud() %}
+                {% for tag in tags %}
+                    <a href="/tags/{{ tag.slug }}" style="font-size: {{ tag.size }}em;">
+                        {{ tag.name }}
+                    </a>
+                {% endfor %}
             </div>
             {% endif %}
         </div> 
