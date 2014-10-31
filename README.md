@@ -16,6 +16,7 @@ update database schema:
 
 make changes in `app/config/config.yml`:
 ```yaml
+    sitename: ApTI Observatory
     theme: default
     timezone: EET
 
