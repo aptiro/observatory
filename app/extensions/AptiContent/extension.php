@@ -94,15 +94,30 @@ class Subdomain extends \Bolt\Content
     }
 }
 
+function sorted_countries($raw_countries) {
+    $country_list_first = [];
+    $idx_global = array_search("Global", $raw_countries);
+    if($idx_global !== false) {
+        unset($raw_countries[$idx_global]);
+        $country_list_first[] = "Global";
+    }
+    $idx_eu = array_search("EU", $raw_countries);
+    if($idx_eu !== false) {
+        unset($raw_countries[$idx_eu]);
+        $country_list_first[] = "EU";
+    }
+    return array_merge($country_list_first, $raw_countries);
+}
+
 class Overview extends \Bolt\Content
 {
     public static function index(Request $request, Silex\Application $app) {
         $query = "SELECT DISTINCT country FROM bolt_items where country != ''";
-        $country_list = array();
+        $raw_countries = array();
         foreach($app['db']->fetchAll($query) as $row) {
-            $country_list[] = $row['country'];
+            $raw_countries[] = $row['country'];
         }
-        sort($country_list);
+        $country_list = sorted_countries($raw_countries);
 
         $query = "SELECT DISTINCT title FROM bolt_domains";
         $domain_list = array();
