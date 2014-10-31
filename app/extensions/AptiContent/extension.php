@@ -120,6 +120,7 @@ function feed($app, $id, $title, $item_list) {
     }
 
     return $app['render']->render('feed.twig', array(
+        'site_url' => SITE_URL,
         'feed_id' => $id,
         'feed_title' => $title,
         'feed_updated' => max($date_list),

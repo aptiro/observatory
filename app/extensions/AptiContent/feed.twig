@@ -7,9 +7,9 @@
 
   {% for item in item_list %}
     <entry>
-      <id>{{ item.url }}</id>
+      <id>{{ site_url }}{{ item.link }}</id>
       <title>{{ item.title }}</title>
-      <link href="{{ item.url }}" />
+      <link href="{{ site_url }}{{ item.link }}" />
       <updated>{{ item.datechanged|date('c') }}</updated>
       <summary>{{ item.description }}</summary>
     </entry>
