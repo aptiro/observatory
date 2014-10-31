@@ -165,11 +165,13 @@ class Overview extends \Bolt\Content
             }
         }
 
+        $feed_url = "/overview/feed.xml";
         $app['twig.loader.filesystem']->addPath(__DIR__);
         return $app['render']->render('apti_overview.twig', array(
             'country_list' => $country_list,
             'domain_list' => $domain_list,
             'item_map' => $item_map,
+            'APTI_EXTRA_HEAD' => "<link rel=\"alternate\" href=\"{$feed_url}\">",
         ));
     }
 
@@ -214,11 +216,13 @@ class Overview extends \Bolt\Content
     public static function more(Request $request, Silex\Application $app,
                                 $domain, $country) {
         $item_list = Overview::_more_items($app, $domain, $country);
+        $feed_url = "/overview/{$domain}/{$country}/feed.xml";
         $app['twig.loader.filesystem']->addPath(__DIR__);
         return $app['render']->render('apti_overview_more.twig', array(
             'item_list' => $item_list,
             'domain' => $domain,
             'country' => $country,
+            'APTI_EXTRA_HEAD' => "<link rel=\"alternate\" href=\"{$feed_url}\">",
         ));
     }
 
