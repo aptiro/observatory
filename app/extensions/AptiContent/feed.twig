@@ -11,7 +11,7 @@
       <title>{{ item.title|escape }}</title>
       <link href="{{ site_url }}{{ item.link|escape }}" />
       <updated>{{ item.datechanged|date('c') }}</updated>
-      <summary>{{ item.description|escape }}</summary>
+      <summary type="html">{{ item.description|escape }}</summary>
     </entry>
   {% endfor %}
 </feed>
