@@ -152,6 +152,7 @@ class Controller
             'title' => $item['title'],
             'url' => $item['url'],
             'feed_id' => $feed_id,
+            'description' => $item['description'],
         ));
         $comment = "Scraping";
         $app['storage']->saveContent($content, $comment);
