@@ -21,7 +21,7 @@ $.getJSON('/theme/default/js/country_centroids.geojson', function(geojson) {
   $.get('/recently_published.json', function(data) {
     geojson.features.forEach(function(f) {
       var coords = f.geometry.coordinates
-      centroids[f.properties.iso_a2] = [coords[1], coords[0]];
+      centroids[f.properties.code] = [coords[1], coords[0]];
     });
     itemList = [];
     data.forEach(function(item) {
