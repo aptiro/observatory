@@ -1,6 +1,6 @@
 {% include '_header.twig' %}
 
-<h1>{{ domain }} - {{ country }}</h1>
+<h1>{{ domain }} - {{ country_name(country) }}</h1>
 
 <ul class="list-unstyled">
   {% for item in item_list %}

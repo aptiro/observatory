@@ -13,7 +13,7 @@
 
   {% for country in country_list %}
   <tr>
-    <th>{{ country }}</th>
+    <th>{{ country_name(country) }}</th>
     {% for domain in domain_list %}
       <td>
           {% if item_map[country][domain]|length > 0 %}
