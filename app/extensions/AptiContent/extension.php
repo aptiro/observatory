@@ -193,12 +193,12 @@ class Overview extends \Bolt\Content
             "LEFT JOIN bolt_domains ".
             "  ON bolt_relations.to_contenttype = 'domains' ".
             "  AND bolt_relations.to_id = bolt_domains.id ".
-            "WHERE bolt_items.status = 'published' ".
-            "AND bolt_items.country = :country"
+            "WHERE bolt_items.status = 'published'"
         );
+        if($country != 'all') { $query .= " AND bolt_items.country = :country"; }
         if($domain != 'all') { $query .= " AND bolt_domains.title = :domain"; }
         $stmt = $app['db']->prepare($query);
-        $stmt->bindValue('country', $country);
+        if($country != 'all') { $stmt->bindValue('country', $country); }
         if($domain != 'all') { $stmt->bindValue('domain', $domain); }
         $stmt->execute();
 
