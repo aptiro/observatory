@@ -7,7 +7,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 
-const SITE_URL = "http://observatory.mappingtheinternet.eu/";
+const SITE_URL = "http://observatory.mappingtheinternet.eu";
+
+function country_name($code) {
+    $countries = Intl::getRegionBundle()->getCountryNames();
+    $name = $countries[$code];
+    if(! $name) { $name = $code; }
+    return $name;
+}
 
 class Extension extends \Bolt\BaseExtension
 {
@@ -44,10 +51,7 @@ class Extension extends \Bolt\BaseExtension
     }
 
     function twigCountryName($code) {
-        $countries = Intl::getRegionBundle()->getCountryNames();
-        $name = $countries[$code];
-        if(! $name) { $name = $code; }
-        return $name;
+        return country_name($code);
     }
 }
 
@@ -238,5 +242,23 @@ class Overview extends \Bolt\Content
                 'Cache-Control' => 's-maxage=3600, public',
             )
         );
+    }
+
+    public static function recently_published(Request $request, Silex\Application $app) {
+        $item_list = $app['storage']->getContent('items',
+            array('limit' => 10, 'order' => 'datepublish desc'));
+        $rv = [];
+        foreach($item_list as $item) {
+            error_log(print_r(strtotime($item['datepublish']), true));
+            $rv[] = array(
+                'link' => $item->link(),
+                'title' => "".$item['title'],
+                'country' => $item['country'],
+                'country_name' => country_name($item['country']),
+                'date' => date('j M Y', strtotime($item['datepublish'])),
+            );
+        }
+        return new Response(json_encode($rv, JSON_PRETTY_PRINT), 200,
+            array('Content-Type' => 'application/json'));
     }
 }
