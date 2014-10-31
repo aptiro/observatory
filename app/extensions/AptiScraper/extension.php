@@ -42,6 +42,7 @@ class Extension extends \Bolt\BaseExtension
 
         $routes = array(
             array('scrape', 'view', 'aptiscraper_scrape'),
+            array('purge', 'purge_old', 'aptiscraper_purge'),
         );
 
         $visitors_routes = $this->app['controllers_factory'];
@@ -214,6 +215,32 @@ class Controller
             $report .= "" . $feed['result'] . " " . $feed['url'] . "\n";
         }
         ;
+        return "<code><pre>\n" . $report . "</code></pre>\n";
+    }
+
+    public function purge_old(Silex\Application $app, Request $request) {
+        if($request->getMethod() != 'POST') {
+            return "<h2>purge</h2><form method=post><input name=key><input type=submit></form>";
+        }
+        $scraping_key = $this->app['config']->get('general/scraping_key');
+        if($request->get('key') != $scraping_key) {
+            $app->abort(403, "Invalid API key");
+        }
+
+        $query = (
+            "SELECT bolt_items.id FROM bolt_items ".
+            "WHERE bolt_items.status = 'draft' ".
+            "AND age(datecreated) > INTERVAL '60 days'"
+        );
+
+        $report = "";
+
+        foreach($this->app['db']->fetchAll($query) as $row) {
+            $id = $row['id'];
+            $report .= "#{$id}\n";
+            $this->app['storage']->deleteContent('items', $id);
+        }
+
         return "<code><pre>\n" . $report . "</code></pre>\n";
     }
 
