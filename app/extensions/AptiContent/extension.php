@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 
+$SITE_URL = "http://observatory.mappingtheinternet.eu/";
+
 class Extension extends \Bolt\BaseExtension
 {
 
@@ -173,7 +175,7 @@ class Overview extends \Bolt\Content
     public static function index_feed(Request $request, Silex\Application $app) {
         $item_list = $app['storage']->getContent('items',
             array('limit' => 20, 'order' => 'datepublish desc'));
-        $feed_id = "http://observatory.mappingtheinternet.eu/overview/feed.xml";
+        $feed_id = $SITE_URL . "overview/feed.xml";
         $body = feed($app, $feed_id, "Policy Observatory", $item_list);
 
         return new Response($body, 200,
@@ -183,8 +185,7 @@ class Overview extends \Bolt\Content
         );
     }
 
-    public static function more(Request $request, Silex\Application $app,
-                                $domain, $country) {
+    static function _more_items($app, $domain, $country) {
         $query = (
             "SELECT distinct(bolt_items.id) FROM bolt_items ".
             "LEFT JOIN bolt_relations ".
@@ -206,12 +207,31 @@ class Overview extends \Bolt\Content
         foreach($stmt->fetchAll() as $row) {
           $item_list[] = $app['storage']->getContent('items', array('id' => $row['id']));
         }
+        return $item_list;
+    }
 
+    public static function more(Request $request, Silex\Application $app,
+                                $domain, $country) {
+        $item_list = Overview::_more_items($app, $domain, $country);
         $app['twig.loader.filesystem']->addPath(__DIR__);
         return $app['render']->render('apti_overview_more.twig', array(
             'item_list' => $item_list,
             'domain' => $domain,
             'country' => $country,
         ));
+    }
+
+    public static function more_feed(Request $request,
+            Silex\Application $app, $domain, $country) {
+        $item_list = Overview::_more_items($app, $domain, $country);
+        $feed_id = $SITE_URL . "overview/{$domain}/{$country}/feed.xml";
+        $title = "Policy Observatory for {$domain} in ${country}";
+        $body = feed($app, $feed_id, $title, $item_list);
+
+        return new Response($body, 200,
+            array('Content-Type' => 'application/rss+xml; charset=utf-8',
+                'Cache-Control' => 's-maxage=3600, public',
+            )
+        );
     }
 }

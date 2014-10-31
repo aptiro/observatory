@@ -132,3 +132,7 @@ apti_overview_feed:
 apti_overview_more:
   path:               /overview/{domain}/{country}
   defaults:           { _controller: 'AptiContent\Overview::more' }
+
+apti_overview_more_feed:
+  path:               /overview/{domain}/{country}/feed.xml
+  defaults:           { _controller: 'AptiContent\Overview::more_feed' }
