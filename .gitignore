@@ -20,10 +20,8 @@ php-cs-fixer.phar
 .*.swp
 /tags
 .swp
-*.lock
 .gitignore
 
-composer.lock
 tests/_log
 tests/*/*Guy.php
 .buildpath
