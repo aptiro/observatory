@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 
-$SITE_URL = "http://observatory.mappingtheinternet.eu/";
+const SITE_URL = "http://observatory.mappingtheinternet.eu/";
 
 class Extension extends \Bolt\BaseExtension
 {
@@ -176,7 +176,7 @@ class Overview extends \Bolt\Content
     public static function index_feed(Request $request, Silex\Application $app) {
         $item_list = $app['storage']->getContent('items',
             array('limit' => 20, 'order' => 'datepublish desc'));
-        $feed_id = $SITE_URL . "overview/feed.xml";
+        $feed_id = SITE_URL . "overview/feed.xml";
         $body = feed($app, $feed_id, "Policy Observatory", $item_list);
 
         return new Response($body, 200,
@@ -225,7 +225,7 @@ class Overview extends \Bolt\Content
     public static function more_feed(Request $request,
             Silex\Application $app, $domain, $country) {
         $item_list = Overview::_more_items($app, $domain, $country);
-        $feed_id = $SITE_URL . "overview/{$domain}/{$country}/feed.xml";
+        $feed_id = SITE_URL . "overview/{$domain}/{$country}/feed.xml";
         $title = "Policy Observatory for {$domain} in ${country}";
         $body = feed($app, $feed_id, $title, $item_list);
 
