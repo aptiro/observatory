@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 
-const SITE_URL = "http://observatory.mappingtheinternet.eu/";
+const SITE_URL = "http://observatory.mappingtheinternet.eu";
 
 class Extension extends \Bolt\BaseExtension
 {
