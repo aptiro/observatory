@@ -4,6 +4,7 @@
 namespace AptiContent;
 use Silex;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 
 class Extension extends \Bolt\BaseExtension
@@ -109,6 +110,21 @@ function sorted_countries($raw_countries) {
     return array_merge($country_list_first, $raw_countries);
 }
 
+function feed($app, $id, $title, $item_list) {
+    $app['twig.loader.filesystem']->addPath(__DIR__);
+    $date_list = [];
+    foreach($item_list as $item) {
+        $date_list[] = $item['datechanged'];
+    }
+
+    return $app['render']->render('feed.twig', array(
+        'feed_id' => $id,
+        'feed_title' => $title,
+        'feed_updated' => max($date_list),
+        'item_list' => $item_list,
+    ));
+}
+
 class Overview extends \Bolt\Content
 {
     public static function index(Request $request, Silex\Application $app) {
@@ -152,6 +168,19 @@ class Overview extends \Bolt\Content
             'domain_list' => $domain_list,
             'item_map' => $item_map,
         ));
+    }
+
+    public static function index_feed(Request $request, Silex\Application $app) {
+        $item_list = $app['storage']->getContent('items',
+            array('limit' => 20, 'order' => 'datepublish desc'));
+        $feed_id = "http://observatory.mappingtheinternet.eu/overview/feed.xml";
+        $body = feed($app, $feed_id, "Policy Observatory", $item_list);
+
+        return new Response($body, 200,
+            array('Content-Type' => 'application/rss+xml; charset=utf-8',
+                'Cache-Control' => 's-maxage=3600, public',
+            )
+        );
     }
 
     public static function more(Request $request, Silex\Application $app,

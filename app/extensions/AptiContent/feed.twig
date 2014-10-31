@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>{{ feed_id }}</id>
+  <title>{{ feed_title }}</title>
+  <updated>{{ feed_updated|date('c') }}</updated>
+  <author><name>Policy Observatory</name></author>
+
+  {% for item in item_list %}
+    <entry>
+      <id>{{ item.url }}</id>
+      <title>{{ item.title }}</title>
+      <link href="{{ item.url }}" />
+      <updated>{{ item.datechanged|date('c') }}</updated>
+      <summary>{{ item.description }}</summary>
+    </entry>
+  {% endfor %}
+</feed>
