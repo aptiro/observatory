@@ -64,7 +64,7 @@ class Controller
         }
         // Determine their font size in em
         foreach($tags as $k => $tag) {
-            $tags[$k]['size'] = $tag['nr'] > 1 ? ( $tag['nr'] / 4 ) + 1 : 1;
+            $tags[$k]['size'] = $tag['nr'] > 1 ? ( $tag['nr'] / 10 ) + 1 : 1;
         }
         
         return $tags;
