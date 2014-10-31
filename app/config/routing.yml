@@ -136,3 +136,7 @@ apti_overview_more:
 apti_overview_more_feed:
   path:               /overview/{domain}/{country}/feed.xml
   defaults:           { _controller: 'AptiContent\Overview::more_feed' }
+
+apti_recently_published:
+  path:               /recently_published.json
+  defaults:           { _controller: 'AptiContent\Overview::recently_published' }

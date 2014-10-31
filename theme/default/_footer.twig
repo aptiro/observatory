@@ -2,8 +2,9 @@
             {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
             {% if currentPath == '/' %}
             <div class="col-sm-4 mapping-sidebar">
-                homepage sidebar
+                <div id="homepage-map" style="height: 300px"></div>
             </div>
+            <script src="/theme/default/js/apti-map.js"></script>
             {% endif %}
         </div> 
         <footer id="page-footer" role="navigation">
