@@ -186,7 +186,7 @@ class Overview extends \Bolt\Content
     public static function more(Request $request, Silex\Application $app,
                                 $domain, $country) {
         $query = (
-            "SELECT bolt_items.* FROM bolt_items ".
+            "SELECT distinct(bolt_items.id) FROM bolt_items ".
             "LEFT JOIN bolt_relations ".
             "  ON bolt_relations.from_contenttype = 'items' ".
             "  AND bolt_items.id = bolt_relations.from_id ".
