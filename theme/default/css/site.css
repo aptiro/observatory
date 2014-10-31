@@ -30,7 +30,7 @@ footer .nav.nav-pills li {
 }
 
 #page-header {
-    width: 1170px;
+    width: 100%;
     border-bottom: 10px solid #badff6;
     margin-bottom: 30px;
     margin-top: -25px;
@@ -38,7 +38,7 @@ footer .nav.nav-pills li {
 }
 
 #page-footer {
-    width: 1170px;
+    width: 100%;
     border-bottom: 10px solid #badff6;
     margin-bottom: 20px;
     margin-top: 0;
@@ -232,4 +232,18 @@ table.table-overview ul.list-unstyled {
 
 #searchform {
     margin-top: 60px;
+}
+
+nav.navbar .no-link {
+    padding-top: 15px;
+}
+
+@media screen and (max-width: 1199px) {
+    nav.navbar .no-link {
+        display: none;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
 }

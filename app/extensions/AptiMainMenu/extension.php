@@ -41,6 +41,7 @@ class Controller
         $menu = array(
             'left' => array(
                 array('label' => 'Home', 'path' => '/', 'class' => 'first'),
+                array('label' => 'About', 'path' => '/page/about'),
                 array('label' => 'News & Views', 'path' => '/overview'),
                 array('label' => 'Startups', 'path' => '/page/startups'),
                 array('label' => 'Suggest', 'path' => '/page/suggest'),
@@ -53,13 +54,13 @@ class Controller
                         array('label' => 'Privacy 3', 'path' => '/page/privacy-3'),
                     )
                 ),
-                array('label' => 'IPR', 'path' => '/page/ipr', 'class' => 'dropdown',
+                array('label' => 'Intellectual Property Rights', 'path' => '/page/ipr', 'class' => 'dropdown',
                     'submenu' => array(
                         array('label' => 'IPR 1', 'path' => '/page/ipr-1'),
                         array('label' => 'IPR 2', 'path' => '/page/ipr-2'),
                         array('label' => 'IPR 3', 'path' => '/page/ipr-3'),
                     )),
-                array('label' => 'IG', 'path' => '/page/ig', 'class' => 'dropdown',
+                array('label' => 'Internet Governance', 'path' => '/page/ig', 'class' => 'dropdown',
                     'submenu' => array(
                         array('label' => 'IG 1', 'path' => '/page/ig-1'),
                         array('label' => 'IG 2', 'path' => '/page/ig-2'),
