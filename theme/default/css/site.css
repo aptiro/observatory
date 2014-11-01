@@ -242,6 +242,10 @@ nav.navbar .no-link {
     margin-top: 15px;
 }
 
+#all-tags {
+    margin-bottom: 25px;
+}
+
 @media screen and (max-width: 1199px) {
     nav.navbar .no-link {
         display: none;

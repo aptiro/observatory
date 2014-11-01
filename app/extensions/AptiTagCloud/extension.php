@@ -20,11 +20,17 @@ class Extension extends \Bolt\BaseExtension
     {
         $this->controller = new Controller($this->app);
         $this->addTwigFunction('tagCloud', 'twigTagCloud');
+        $this->addTwigFunction('allTags', 'twigGetTags');
     }
 
     public function twigTagCloud()
     {
         return $this->controller->twigTagCloud();
+    }
+
+    public function twigGetTags()
+    {
+        return $this->controller->twigTagCloud(false);
     }
 
 }
@@ -36,25 +42,9 @@ class Controller
         $this->app = $app;
     }
 
-    public function twigTagCloud()
+    public function twigTagCloud($limit = 20)
     {
-        // Get all the tags
-        $sqlTags = "SELECT id, slug, name, bolt_taxonomy.taxonomytype FROM bolt_taxonomy
-                        WHERE taxonomytype='tags'";
-        $tagsRaw = $this->app['db']->fetchAll($sqlTags);
-        $tags = array();
-        // Add them to an array and hold their data nicely
-        foreach($tagsRaw as $tag) {
-            if(in_array($tag['slug'], array_keys($tags))) {
-                $tags[$tag['slug']]['nr']++;
-            } else {
-                $tags[$tag['slug']] = array(
-                    'name' => $tag['name'],
-                    'slug' => $tag['slug'],
-                    'nr'   => 1
-                );
-            }
-        }
+        $tags = $this->getTags();
 
         // Sort by the number of items
         usort($tags, function($a, $b) {
@@ -62,7 +52,9 @@ class Controller
         });
 
         // Limit to a certain number of tags
-        $tags = array_slice($tags, 0, 20);
+        if($limit) {
+            $tags = array_slice($tags, 0, $limit);        
+        }
 
         // Order them alphabetically
         usort($tags, function($a, $b) {
@@ -85,6 +77,35 @@ class Controller
             $tags[$k]['size'] = $tag['nr'] > $min ? ( ($tag['nr'] - $min) / 5 ) + 1 : 1;
         }
         
+        return $tags;
+    }
+
+    public function tags(Silex\Application $app)
+    {
+        $template = 'tags.twig';
+        return $app['render']->render($template);
+    }
+
+    private function getTags()
+    {
+        // Get all the tags
+        $sqlTags = "SELECT id, slug, name, bolt_taxonomy.taxonomytype FROM bolt_taxonomy
+                        WHERE taxonomytype='tags'";
+        $tagsRaw = $this->app['db']->fetchAll($sqlTags);
+        $tags = array();
+        // Add them to an array and hold their data nicely
+        foreach($tagsRaw as $tag) {
+            if(in_array($tag['slug'], array_keys($tags))) {
+                $tags[$tag['slug']]['nr']++;
+            } else {
+                $tags[$tag['slug']] = array(
+                    'name' => $tag['name'],
+                    'slug' => $tag['slug'],
+                    'nr'   => 1
+                );
+            }
+        }
+
         return $tags;
     }
 

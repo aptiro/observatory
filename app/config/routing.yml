@@ -61,6 +61,9 @@ contentlisting:
 # Example to route old '.html' pages to pages genereated by bolt.
 
 #oldpages:
+tags:
+  path:               /tags
+  defaults:           { _controller: 'AptiTagCloud\Controller::tags' }
 #  path: /{slug}.html
 #  defaults: { _controller: 'Bolt\Controllers\Frontend::record', 'contenttypeslug': 'page' }
 #  requirements:

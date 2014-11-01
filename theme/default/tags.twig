@@ -1,0 +1,10 @@
+{% include '_header.twig' %}
+    {% set tags = allTags() %}
+    <div id="all-tags">
+        {% for tag in tags %}
+            <a href="/tags/{{ tag.slug }}" style="font-size: {{ tag.size }}em;">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+    </div>
+{% include '_footer.twig' %}
