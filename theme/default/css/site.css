@@ -238,6 +238,10 @@ nav.navbar .no-link {
     padding-top: 15px;
 }
 
+#tag-cloud {
+    margin-top: 15px;
+}
+
 @media screen and (max-width: 1199px) {
     nav.navbar .no-link {
         display: none;

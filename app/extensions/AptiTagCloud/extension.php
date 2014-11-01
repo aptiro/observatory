@@ -55,16 +55,34 @@ class Controller
                 );
             }
         }
+
+        // Sort by the number of items
+        usort($tags, function($a, $b) {
+            return $b['nr'] - $a['nr'];
+        });
+
+        // Limit to a certain number of tags
+        $tags = array_slice($tags, 0, 20);
+
+        // Order them alphabetically
+        usort($tags, function($a, $b) {
+            return strcasecmp($a['name'], $b['name']);
+        });
+
         // Determine the maximum number of appeareances of a tag
         $max = 1;
         foreach($tags as $k => $tag) {
             if($tag['nr'] > $max) {
                 $max = $tag['nr'];
             }
+            if(!isset($min) || $tag['nr'] < $min) {
+                $min = $tag['nr'];
+            }
         }
+
         // Determine their font size in em
         foreach($tags as $k => $tag) {
-            $tags[$k]['size'] = $tag['nr'] > 1 ? ( $tag['nr'] / 10 ) + 1 : 1;
+            $tags[$k]['size'] = $tag['nr'] > $min ? ( ($tag['nr'] - $min) / 5 ) + 1 : 1;
         }
         
         return $tags;
