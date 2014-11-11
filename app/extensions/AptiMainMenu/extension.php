@@ -44,7 +44,7 @@ class Controller
                 array('label' => 'About', 'path' => '/page/about'),
                 array('label' => 'News & Views', 'path' => '/overview'),
                 array('label' => 'Startups', 'path' => '/page/startups'),
-                array('label' => 'Suggest', 'path' => '/page/suggest'),
+                array('label' => 'Suggest', 'path' => '/suggest/'),
             ),
             'right' => array(
                 array('label' => 'Privacy', 'path' => '/page/privacy', 'class' => 'dropdown',
