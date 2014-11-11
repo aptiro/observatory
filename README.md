@@ -24,6 +24,7 @@ make changes in `app/config/config.yml`:
       - AptiScraper
       - AptiMainMenu
       - AptiContent
+      - AptiTagCloud
 
     debug: false # for production
     scraping_key: asdf
