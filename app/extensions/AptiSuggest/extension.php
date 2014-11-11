@@ -61,6 +61,8 @@ class Suggest extends \Bolt\Content {
             $admin_url = SITE_URL . "/bolt/editcontent/items/{$content->id}";
             $subject = "Article suggested on Policy Observatory";
             send_mail($app, $subject, $admin_url);
+
+            $app['session']->getFlashBag()->set('info', "Article '{$title}' has been saved.");
         }
 
         $app['twig.loader.filesystem']->addPath(__DIR__);
