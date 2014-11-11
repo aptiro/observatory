@@ -143,3 +143,7 @@ apti_overview_more_feed:
 apti_recently_published:
   path:               /recently_published.json
   defaults:           { _controller: 'AptiContent\Overview::recently_published' }
+
+apti_suggest:
+  path:               /suggest/
+  defaults:           { _controller: 'AptiSuggest\Suggest::form' }

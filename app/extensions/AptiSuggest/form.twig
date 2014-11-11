@@ -1,0 +1,33 @@
+{% include '_header.twig' %}
+
+{% include '_ckeditor.twig' %}
+
+<h1>Suggest article</h1>
+
+<p>
+  Please include the article's title, and the first paragraph of
+  content, to make the editors' work easier.
+</p>
+
+<form method="post">
+  <div class="form-group">
+    <label for="suggest-url">URL</label>
+    <input class="form-control" id="suggest-url" name="url"
+           placeholder="http://... or https://...">
+  </div>
+
+  <div class="form-group">
+    <label for="suggest-title">Title</label>
+    <input class="form-control" id="suggest-title" name="title">
+  </div>
+
+  <div class="form-group">
+    <label for="suggest-description">Description</label>
+    <textarea class="ckeditor" id="suggest-description"
+              name="description"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+{% include '_footer.twig' %}

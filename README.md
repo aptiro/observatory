@@ -25,9 +25,16 @@ make changes in `app/config/config.yml`:
       - AptiMainMenu
       - AptiContent
       - AptiTagCloud
+      - AptiSuggest
 
     debug: false # for production
     scraping_key: asdf
+
+    apti_mail:
+      key: "MANDRILL-KEY-HERE"
+      recipients:
+        - email: "foo@example.com"
+        - email: "bar@example.com"
 ```
 
 
