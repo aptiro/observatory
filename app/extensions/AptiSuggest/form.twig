@@ -9,25 +9,41 @@
   content, to make the editors' work easier.
 </p>
 
-<form method="post">
+<form method="post" action="/suggest/">
   <div class="form-group">
     <label for="suggest-url">URL</label>
     <input class="form-control" id="suggest-url" name="url"
-           placeholder="http://... or https://...">
+           placeholder="http://... or https://..." value="{{ url }}">
   </div>
 
   <div class="form-group">
     <label for="suggest-title">Title</label>
-    <input class="form-control" id="suggest-title" name="title">
+    <input class="form-control" id="suggest-title"
+           name="title" value="{{ title }}">
   </div>
 
   <div class="form-group">
     <label for="suggest-description">Description</label>
     <textarea class="ckeditor" id="suggest-description"
-              name="description"></textarea>
+              name="description">{{ description }}</textarea>
   </div>
 
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+
+<h2>Install the Observatory bookmarklet</h2>
+
+<p>
+  {% set bookmarklet = "javascript:(function(){var u=location.href,d=document.getSelection?document.getSelection():'',t=document.title;open('http://observatory.mappingtheinternet.eu/suggest/?url='+encodeURIComponent(u)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(t))})();" %}
+  The <a href="{{ bookmarklet }}">Suggest to Observatory</a> bookmarklet
+  will send the current page to the observatory.
+</p>
+
+<p>
+  To install it, on Firefox/Safari/Chrome/Opera, drag the link to your
+  bookmarks toolbar. On Internet Explorer, right-click on the bookmarklet,
+  and select "add to Favorites".
+</p>
 
 {% include '_footer.twig' %}

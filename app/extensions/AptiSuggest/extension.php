@@ -66,7 +66,11 @@ class Suggest extends \Bolt\Content {
         }
 
         $app['twig.loader.filesystem']->addPath(__DIR__);
-        return $app['render']->render('form.twig', array());
+        return $app['render']->render('form.twig', array(
+            'url' => $request->query->get('url'),
+            'title' => $request->query->get('title'),
+            'description' => $request->query->get('description'),
+        ));
     }
 
 }
