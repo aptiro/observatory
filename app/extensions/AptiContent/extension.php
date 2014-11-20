@@ -158,6 +158,7 @@ class Overview extends \Bolt\Content
             "   WHERE bolt_items.status = 'published' ";
         if($stakeholder) {
             $query .= "   AND bolt_taxonomy.slug = :stakeholder ";
+                      "   AND bolt_taxonomy.taxonomytype = 'stakeholder' ";
         }
         $query .=
             ") ".
