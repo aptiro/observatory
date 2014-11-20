@@ -43,7 +43,6 @@ class Controller
                 array('label' => 'Home', 'path' => '/', 'class' => 'first'),
                 array('label' => 'About', 'path' => '/page/about'),
                 array('label' => 'News & Views', 'path' => '/overview'),
-                array('label' => 'Startups', 'path' => '/page/startups'),
                 array('label' => 'Suggest', 'path' => '/suggest/'),
             ),
             'right' => array(
@@ -65,7 +64,8 @@ class Controller
                         array('label' => 'IG 1', 'path' => '/page/ig-1'),
                         array('label' => 'IG 2', 'path' => '/page/ig-2'),
                         array('label' => 'IG 3', 'path' => '/page/ig-3'),
-                    ))
+                    )),
+                array('label' => 'Startups', 'path' => '/page/startups'),
             )
         );
         return $menu;
