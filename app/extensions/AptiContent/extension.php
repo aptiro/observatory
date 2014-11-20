@@ -151,7 +151,8 @@ class Overview extends \Bolt\Content
 
         $query = 
             "WITH ids AS (".
-            "   SELECT DISTINCT bolt_items.id FROM bolt_items ".
+            "   SELECT DISTINCT(bolt_items.id) ".
+            "   FROM bolt_items ".
             "   LEFT JOIN bolt_taxonomy ".
             "       ON bolt_taxonomy.content_id = bolt_items.id ".
             "   WHERE bolt_items.status = 'published' ";
@@ -159,7 +160,6 @@ class Overview extends \Bolt\Content
             $query .= "   AND bolt_taxonomy.slug = :stakeholder ";
         }
         $query .=
-            "   GROUP BY bolt_items.id".
             ") ".
             "SELECT bolt_items.*, bolt_domains.title AS domain FROM bolt_items " .
             "   LEFT JOIN bolt_relations ".
@@ -168,7 +168,8 @@ class Overview extends \Bolt\Content
             "   LEFT JOIN bolt_domains ".
             "       ON bolt_relations.to_contenttype = 'domains' ".
             "       AND bolt_relations.to_id = bolt_domains.id ".
-            "   WHERE bolt_items.id IN (SELECT id FROM ids)"
+            "   WHERE bolt_items.id IN (SELECT id FROM ids) ".
+            "   ORDER BY bolt_items.datepublish DESC"
         ;
         $stmt = $app['db']->prepare($query);
         if(isset($_GET['stakeholder'])) {
