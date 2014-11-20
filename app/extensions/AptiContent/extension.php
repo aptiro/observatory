@@ -149,18 +149,32 @@ class Overview extends \Bolt\Content
         }
         sort($domain_list);
 
-        $query = (
-            "SELECT bolt_items.*, bolt_domains.title as domain FROM bolt_items ".
-            "LEFT JOIN bolt_relations ".
-            "  ON bolt_relations.from_contenttype = 'items' ".
-            "  AND bolt_items.id = bolt_relations.from_id ".
-            "LEFT JOIN bolt_domains ".
-            "  ON bolt_relations.to_contenttype = 'domains' ".
-            "  AND bolt_relations.to_id = bolt_domains.id ".
-            "WHERE bolt_items.status = 'published'"
-        );
+        $query = 
+            "WITH ids AS (SELECT DISTINCT bolt_items.id FROM bolt_items ".
+            "   LEFT JOIN bolt_taxonomy ".
+            "       ON bolt_taxonomy.content_id = bolt_items.id ".
+            "   WHERE bolt_items.status = 'published' ";
+        if(isset($_GET['stakeholder'])) {
+            $query .= "   AND bolt_taxonomy.slug= :stakeholder ";
+        }
+        $query .=
+            "   GROUP BY bolt_items.id) ".
+            "SELECT bolt_items.*, bolt_domains.title AS domain FROM bolt_items " .
+            "   LEFT JOIN bolt_relations ".
+            "       ON bolt_relations.from_contenttype = 'items' ".
+            "       AND bolt_items.id = bolt_relations.from_id ".
+            "   LEFT JOIN bolt_domains ".
+            "       ON bolt_relations.to_contenttype = 'domains' ".
+            "       AND bolt_relations.to_id = bolt_domains.id ".
+            "   WHERE bolt_items.id IN (SELECT id FROM ids)"
+        ;
+        $stmt = $app['db']->prepare($query);
+        if(isset($_GET['stakeholder'])) {
+            $stmt->bindValue('stakeholder', $_GET['stakeholder']);
+        }
+        $stmt->execute();
         $item_map = array();
-        foreach($app['db']->fetchAll($query) as $row) {
+        foreach($stmt->fetchAll() as $row) {
             $country = $row['country'];
             $domain = $row['domain'];
             if($country && $domain) {
