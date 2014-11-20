@@ -208,7 +208,8 @@ class Overview extends \Bolt\Content
 
     static function _more_items($app, $domain, $country) {
         $query = (
-            "SELECT distinct(bolt_items.id) FROM bolt_items ".
+            "SELECT distinct(bolt_items.id), bolt_items.datepublish ".
+            "FROM bolt_items ".
             "LEFT JOIN bolt_relations ".
             "  ON bolt_relations.from_contenttype = 'items' ".
             "  AND bolt_items.id = bolt_relations.from_id ".
@@ -219,6 +220,7 @@ class Overview extends \Bolt\Content
         );
         if($country != 'all') { $query .= " AND bolt_items.country = :country"; }
         if($domain != 'all') { $query .= " AND bolt_domains.title = :domain"; }
+        $query .= " ORDER BY bolt_items.datepublish DESC";
         $stmt = $app['db']->prepare($query);
         if($country != 'all') { $stmt->bindValue('country', $country); }
         if($domain != 'all') { $stmt->bindValue('domain', $domain); }
