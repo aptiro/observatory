@@ -161,15 +161,23 @@ class Overview extends \Bolt\Content
         }
         $query .=
             ") ".
-            "SELECT bolt_items.*, bolt_domains.title AS domain FROM bolt_items " .
+            "SELECT * FROM ( ".
+            "SELECT ".
+            "       bolt_items.*, bolt_domains.title AS domain, ".
+            "       row_number() OVER (".
+            "           PARTITION BY (bolt_domains.id, country) ".
+            "           ORDER BY bolt_items.datepublish DESC ".
+            "       ) AS row_number ".
+            "   FROM bolt_items " .
             "   LEFT JOIN bolt_relations ".
             "       ON bolt_relations.from_contenttype = 'items' ".
             "       AND bolt_items.id = bolt_relations.from_id ".
             "   LEFT JOIN bolt_domains ".
             "       ON bolt_relations.to_contenttype = 'domains' ".
             "       AND bolt_relations.to_id = bolt_domains.id ".
-            "   WHERE bolt_items.id IN (SELECT id FROM ids) ".
-            "   ORDER BY bolt_items.datepublish DESC"
+            "   JOIN ids ON ids.id = bolt_items.id ".
+            "   ORDER BY bolt_items.datepublish DESC".
+            ") AS q WHERE row_number < 5"
         ;
         $stmt = $app['db']->prepare($query);
         if(isset($_GET['stakeholder'])) {
