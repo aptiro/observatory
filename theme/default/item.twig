@@ -26,7 +26,7 @@
     <p>
       Stakeholder:
       {% for k,sk in record.taxonomy.stakeholder %}
-        <a class="label label-info" href="/overview/?stakeholder={{ k|replace({'/stakeholder/': ''}) }}">{{ sk }}</a>
+        <a class="label label-info" href="/overview/stakeholder/{{ k|replace({'/stakeholder/': ''}) }}">{{ sk }}</a>
       {% endfor %}
     </p>
     {% endif %}
