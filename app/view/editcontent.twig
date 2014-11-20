@@ -85,14 +85,15 @@
             {% endfor %}
         </select>
         </label>
-
-        <label><b><span class='left'>{{ __('Owner:') }}</span></b>
-        <select name="ownerid" {% if not isallowed("contenttype:" ~ contenttype.slug ~ ":change-owner:" ~ content.id) %}disabled="disabled"{% endif %}>
-            {% for user in users %}
-                <option value="{{ user.id }}" {% if contentowner and user.id == contentowner.id %}selected="selected"{% endif %}>{{user.displayname}}</option>
-            {% endfor %}
-        </select>
-        </label>
+        <div class="owner" style="display: none;">
+            <label><b><span class='left'>{{ __('Owner:') }}</span></b>
+            <select name="ownerid" {% if not isallowed("contenttype:" ~ contenttype.slug ~ ":change-owner:" ~ content.id) %}disabled="disabled"{% endif %}>
+                {% for user in users %}
+                    <option value="{{ user.id }}" {% if contentowner and user.id == contentowner.id %}selected="selected"{% endif %}>{{user.displayname}}</option>
+                {% endfor %}
+            </select>
+            </label>
+        </div>
 
         {% if isChangelogEnabled() %}
             <label><b><span class='left'>{{ __('Add a comment:') }}</span></b>
