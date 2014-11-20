@@ -2,12 +2,13 @@
 
 <h1>{{ domain }} - {{ country_name(country) }}</h1>
 
-<ul class="list-unstyled">
+<ul class="list-unstyled list-overview-more">
   {% for item in item_list %}
     <li>
       <a href="{{ item.link }}">
         {{ item.title }}
       </a>
+      <span class="date">{{ item.datepublish|date('F j, Y') }}</span>
     </li>
   {% endfor %}
 </ul>
