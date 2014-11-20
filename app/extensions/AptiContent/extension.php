@@ -150,23 +150,34 @@ class Overview extends \Bolt\Content
         sort($domain_list);
 
         $query = 
-            "WITH ids AS (SELECT DISTINCT bolt_items.id FROM bolt_items ".
+            "WITH ids AS (".
+            "   SELECT DISTINCT(bolt_items.id) ".
+            "   FROM bolt_items ".
             "   LEFT JOIN bolt_taxonomy ".
             "       ON bolt_taxonomy.content_id = bolt_items.id ".
             "   WHERE bolt_items.status = 'published' ";
         if(isset($_GET['stakeholder'])) {
-            $query .= "   AND bolt_taxonomy.slug= :stakeholder ";
+            $query .= "   AND bolt_taxonomy.slug = :stakeholder ";
         }
         $query .=
-            "   GROUP BY bolt_items.id) ".
-            "SELECT bolt_items.*, bolt_domains.title AS domain FROM bolt_items " .
+            ") ".
+            "SELECT * FROM ( ".
+            "SELECT ".
+            "       bolt_items.*, bolt_domains.title AS domain, ".
+            "       row_number() OVER (".
+            "           PARTITION BY (bolt_domains.id, country) ".
+            "           ORDER BY bolt_items.datepublish DESC ".
+            "       ) AS row_number ".
+            "   FROM bolt_items " .
             "   LEFT JOIN bolt_relations ".
             "       ON bolt_relations.from_contenttype = 'items' ".
             "       AND bolt_items.id = bolt_relations.from_id ".
             "   LEFT JOIN bolt_domains ".
             "       ON bolt_relations.to_contenttype = 'domains' ".
             "       AND bolt_relations.to_id = bolt_domains.id ".
-            "   WHERE bolt_items.id IN (SELECT id FROM ids)"
+            "   JOIN ids ON ids.id = bolt_items.id ".
+            "   ORDER BY bolt_items.datepublish DESC".
+            ") AS q WHERE row_number < 5"
         ;
         $stmt = $app['db']->prepare($query);
         if(isset($_GET['stakeholder'])) {
@@ -208,7 +219,8 @@ class Overview extends \Bolt\Content
 
     static function _more_items($app, $domain, $country) {
         $query = (
-            "SELECT distinct(bolt_items.id) FROM bolt_items ".
+            "SELECT distinct(bolt_items.id), bolt_items.datepublish ".
+            "FROM bolt_items ".
             "LEFT JOIN bolt_relations ".
             "  ON bolt_relations.from_contenttype = 'items' ".
             "  AND bolt_items.id = bolt_relations.from_id ".
@@ -219,6 +231,7 @@ class Overview extends \Bolt\Content
         );
         if($country != 'all') { $query .= " AND bolt_items.country = :country"; }
         if($domain != 'all') { $query .= " AND bolt_domains.title = :domain"; }
+        $query .= " ORDER BY bolt_items.datepublish DESC";
         $stmt = $app['db']->prepare($query);
         if($country != 'all') { $stmt->bindValue('country', $country); }
         if($domain != 'all') { $stmt->bindValue('domain', $domain); }
