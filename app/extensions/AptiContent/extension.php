@@ -150,15 +150,17 @@ class Overview extends \Bolt\Content
         sort($domain_list);
 
         $query = 
-            "WITH ids AS (SELECT DISTINCT bolt_items.id FROM bolt_items ".
+            "WITH ids AS (".
+            "   SELECT DISTINCT bolt_items.id FROM bolt_items ".
             "   LEFT JOIN bolt_taxonomy ".
             "       ON bolt_taxonomy.content_id = bolt_items.id ".
             "   WHERE bolt_items.status = 'published' ";
         if(isset($_GET['stakeholder'])) {
-            $query .= "   AND bolt_taxonomy.slug= :stakeholder ";
+            $query .= "   AND bolt_taxonomy.slug = :stakeholder ";
         }
         $query .=
-            "   GROUP BY bolt_items.id) ".
+            "   GROUP BY bolt_items.id".
+            ") ".
             "SELECT bolt_items.*, bolt_domains.title AS domain FROM bolt_items " .
             "   LEFT JOIN bolt_relations ".
             "       ON bolt_relations.from_contenttype = 'items' ".
