@@ -88,3 +88,9 @@ extension:
                 are <em>case sensitive</em>, to eliminate issues with the filesystem. </p>
             <p>example:</p>
             <pre><code>enabled_extensions: [ HelloWorld, GoogleAnalytics ]</code></pre>
+homepage:
+    welcome: |
+        <p>Lorem ipsum dolor sit amet, an nam mentitum moderatius consectetuer, sensibus explicari maiestatis quo ad.<br />
+        In sea vocent phaedrum. Ex laoreet conclusionemque mel, ut ludus splendide nec.<br />
+        Ut quodsi evertitur per, legere alterum sea in. Vix an eruditi salutandi conceptam, ne veniam minimum sit. Id dolorem intellegat quo, at iisque pertinax mei.
+        </p>

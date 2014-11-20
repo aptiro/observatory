@@ -1,5 +1,9 @@
 {% include '_header.twig' %}
-
+<div class="row welcome">
+    <div class="col-sm-12">
+        {{ app.translator.trans('homepage.welcome',{},'infos')|raw }}
+    </div>
+</div>
 {% setcontent items = "items" where { featured: 'Yes' } orderby '-weight' limit 3 %}
 {% for item in items %}
     {% if loop.index == 1 %}

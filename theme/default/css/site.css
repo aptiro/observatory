@@ -246,6 +246,17 @@ nav.navbar .no-link {
     margin-bottom: 25px;
 }
 
+.welcome {
+    line-height: 1.6em;
+    background: #f5f5f5;
+    padding: 10px 0;
+    margin: 0 0 15px 15px;
+}
+
+    .welcome p {
+        margin-bottom: 0;
+    }
+
 @media screen and (max-width: 1199px) {
     nav.navbar .no-link {
         display: none;
