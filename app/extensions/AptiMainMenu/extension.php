@@ -46,6 +46,7 @@ class Controller
                 array('label' => 'Suggest', 'path' => '/suggest/'),
             ),
             'right' => array(
+                array('label' => 'Startups', 'path' => '/page/startups'),
                 array('label' => 'Privacy', 'path' => '/page/privacy', 'class' => 'dropdown',
                     'submenu' => array(
                         array('label' => 'Privacy 1', 'path' => '/page/privacy-1'),
@@ -65,7 +66,6 @@ class Controller
                         array('label' => 'IG 2', 'path' => '/page/ig-2'),
                         array('label' => 'IG 3', 'path' => '/page/ig-3'),
                     )),
-                array('label' => 'Startups', 'path' => '/page/startups'),
             )
         );
         return $menu;

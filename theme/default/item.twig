@@ -22,11 +22,11 @@
       {% endfor %}
     </p>
 
-    {% if record.taxonomy.stakeholder %}
+    {% if record.taxonomy.publisher %}
     <p>
       Stakeholder:
-      {% for sk in record.taxonomy.stakeholder %}
-        <span class="label label-info">{{ sk }}</span>
+      {% for k,sk in record.taxonomy.stakeholder %}
+        <a class="label label-info" href="/overview/?stakeholder={{ k|replace({'/stakeholder/': ''}) }}">{{ sk }}</a>
       {% endfor %}
     </p>
     {% endif %}
