@@ -134,7 +134,7 @@ function feed($app, $id, $title, $item_list) {
 
 class Overview extends \Bolt\Content
 {
-    public static function index(Request $request, Silex\Application $app) {
+    public static function index(Request $request, Silex\Application $app, $stakeholder = false) {
         $query = "SELECT DISTINCT country FROM bolt_items where country != ''";
         $raw_countries = array();
         foreach($app['db']->fetchAll($query) as $row) {
@@ -156,7 +156,7 @@ class Overview extends \Bolt\Content
             "   LEFT JOIN bolt_taxonomy ".
             "       ON bolt_taxonomy.content_id = bolt_items.id ".
             "   WHERE bolt_items.status = 'published' ";
-        if(isset($_GET['stakeholder'])) {
+        if($stakeholder) {
             $query .= "   AND bolt_taxonomy.slug = :stakeholder ";
         }
         $query .=
@@ -180,8 +180,8 @@ class Overview extends \Bolt\Content
             ") AS q WHERE row_number < 5"
         ;
         $stmt = $app['db']->prepare($query);
-        if(isset($_GET['stakeholder'])) {
-            $stmt->bindValue('stakeholder', $_GET['stakeholder']);
+        if($stakeholder) {
+            $stmt->bindValue('stakeholder', $stakeholder);
         }
         $stmt->execute();
         $item_map = array();

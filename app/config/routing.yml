@@ -132,6 +132,10 @@ apti_overview_feed:
   path:               /overview/feed.xml
   defaults:           { _controller: 'AptiContent\Overview::index_feed' }
 
+apti_overview_stakeholder:
+  path:               /overview/stakeholder/{stakeholder}
+  defaults:           { _controller: 'AptiContent\Overview::index' }
+
 apti_overview_more:
   path:               /overview/{domain}/{country}
   defaults:           { _controller: 'AptiContent\Overview::more' }
