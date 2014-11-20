@@ -34,7 +34,6 @@
             <div class="tagcloud" id="tagcloud-{{taxonomy.slug}}"></div>
             <script>
             $(function() {
-
                 // load all tags
                 $.ajax({
                     url: "{{ paths.root }}async/tags/{{taxonomy.slug}}",
