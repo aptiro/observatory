@@ -166,7 +166,10 @@ class Overview extends \Bolt\Content
             "       bolt_items.*, bolt_domains.title AS domain, ".
             "       row_number() OVER (".
             "           PARTITION BY (bolt_domains.id, country) ".
-            "           ORDER BY bolt_items.datepublish DESC ".
+            "           ORDER BY ".
+            "               bolt_items.weight DESC, ".
+            "               bolt_items.datepublish DESC ".
+            "           ".
             "       ) AS row_number ".
             "   FROM bolt_items " .
             "   LEFT JOIN bolt_relations ".
@@ -176,7 +179,9 @@ class Overview extends \Bolt\Content
             "       ON bolt_relations.to_contenttype = 'domains' ".
             "       AND bolt_relations.to_id = bolt_domains.id ".
             "   JOIN ids ON ids.id = bolt_items.id ".
-            "   ORDER BY bolt_items.datepublish DESC".
+            "   ORDER BY ".
+            "       bolt_items.weight DESC, ".
+            "       bolt_items.datepublish DESC ".
             ") AS q WHERE row_number < 5"
         ;
         $stmt = $app['db']->prepare($query);
@@ -219,7 +224,10 @@ class Overview extends \Bolt\Content
 
     static function _more_items($app, $domain, $country) {
         $query = (
-            "SELECT distinct(bolt_items.id), bolt_items.datepublish ".
+            "SELECT ".
+            "   distinct(bolt_items.id), ".
+            "   bolt_items.weight, ".
+            "   bolt_items.datepublish ".
             "FROM bolt_items ".
             "LEFT JOIN bolt_relations ".
             "  ON bolt_relations.from_contenttype = 'items' ".
@@ -231,7 +239,9 @@ class Overview extends \Bolt\Content
         );
         if($country != 'all') { $query .= " AND bolt_items.country = :country"; }
         if($domain != 'all') { $query .= " AND bolt_domains.title = :domain"; }
-        $query .= " ORDER BY bolt_items.datepublish DESC";
+        $query .= " ORDER BY ".
+            "bolt_items.weight DESC, ".
+            "bolt_items.datepublish DESC ";
         $stmt = $app['db']->prepare($query);
         if($country != 'all') { $stmt->bindValue('country', $country); }
         if($domain != 'all') { $stmt->bindValue('domain', $domain); }
