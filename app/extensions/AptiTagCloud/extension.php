@@ -46,6 +46,8 @@ class Controller
     {
         $tags = $this->getTags();
 
+        $totalTags = $limit && $limit > count($tags) ? $limit : count($tags);
+
         // Sort by the number of items
         usort($tags, function($a, $b) {
             return $b['nr'] - $a['nr'];
@@ -53,7 +55,7 @@ class Controller
 
         // Limit to a certain number of tags
         if($limit) {
-            $tags = array_slice($tags, 0, $limit);        
+            $tags = array_slice($tags, 0, $limit);
         }
 
         // Order them alphabetically
@@ -74,9 +76,9 @@ class Controller
 
         // Determine their font size in em
         foreach($tags as $k => $tag) {
-            $tags[$k]['size'] = $tag['nr'] > $min ? ( ($tag['nr'] - $min) / 5 ) + 1 : 1;
+            $tags[$k]['size'] = $tag['nr'] > $min ? ( $totalTags / 20 / ($tag['nr'] - $min) ) + 1 : 1;
         }
-        
+
         return $tags;
     }
 
