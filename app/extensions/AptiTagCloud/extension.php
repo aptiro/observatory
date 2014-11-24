@@ -46,7 +46,7 @@ class Controller
     {
         $tags = $this->getTags();
 
-        $totalTags = $limit && $limit > count($tags) ? $limit : count($tags);
+        $totalTags = count($tags);
 
         // Sort by the number of items
         usort($tags, function($a, $b) {
@@ -74,9 +74,19 @@ class Controller
             }
         }
 
+        $minSize = 1;
+        $maxSize = 3;
+
         // Determine their font size in em
         foreach($tags as $k => $tag) {
-            $tags[$k]['size'] = $tag['nr'] > $min ? ( $totalTags / 20 / ($tag['nr'] - $min) ) + 1 : 1;
+            $calculatedSize = round($tag['nr'] / $max, 2) * $maxSize;
+            if($calculatedSize < $minSize) {
+                $tags[$k]['size'] = $minSize * (($min / $max) * 8);
+            } else if($calculatedSize > $maxSize) {
+                $tags[$k]['size'] = $maxSize;
+            } else {
+                $tags[$k]['size'] = $calculatedSize;
+            }
         }
 
         return $tags;
