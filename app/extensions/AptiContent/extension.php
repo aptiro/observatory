@@ -149,7 +149,7 @@ class Overview extends \Bolt\Content
         }
         sort($domain_list);
 
-        $query = 
+        $query =
             "WITH ids AS (".
             "   SELECT DISTINCT(bolt_items.id) ".
             "   FROM bolt_items ".
@@ -296,5 +296,20 @@ class Overview extends \Bolt\Content
         }
         return new Response(json_encode($rv, JSON_PRETTY_PRINT), 200,
             array('Content-Type' => 'application/json'));
+    }
+}
+
+class Api extends \Bolt\Content
+{
+
+    function bulk_delete(Silex\Application $app) {
+        // If the user is logged in, then he's allowed to be here, yadda yadda yadda
+        if( !empty($app['users']->currentuser) && $app['users']->currentuser['enabled']==1 ) {
+            $ids = $_POST['items'];
+            $query = "DELETE FROM bolt_items WHERE id IN (" . implode(', ', $ids) . ")";
+            $stmt = $app['db']->prepare($query);
+            $stmt->execute();
+            die();
+        }
     }
 }

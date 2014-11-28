@@ -81,7 +81,7 @@ class Controller
         foreach($tags as $k => $tag) {
             $calculatedSize = round($tag['nr'] / $max, 2) * $maxSize;
             if($calculatedSize < $minSize) {
-                $tags[$k]['size'] = $minSize * (($min / $max) * 8);
+                $tags[$k]['size'] = $minSize * (($min / $max) * 9);
             } else if($calculatedSize > $maxSize) {
                 $tags[$k]['size'] = $maxSize;
             } else {

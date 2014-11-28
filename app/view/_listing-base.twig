@@ -25,6 +25,9 @@
 
                 {% set link = "?" ~ filter ~ "order=" %}
                 <tr>
+                    {% if content.contenttype.slug == 'items' %}
+                        <th></th>
+                    {% endif %}
                     {% block listing_header %}
                     <th class="hide-phone"><a href='{{link}}{% if request('order')=="id" %}-{%endif%}id'>#</a></th>
 
@@ -42,7 +45,11 @@
 
 
             <tr {% if content.status!='published' %}class="dim"{% endif %}>
-
+                {% if content.contenttype.slug == 'items' %}
+                <td>
+                    <input type="checkbox" class="form-control item-checkbox" value="{{ content.id }}" />
+                </td>
+                {% endif %}
                 {% block listing_id %}
                     <td class='id hide-phone'>№ {{content.id}}</td>
                 {% endblock %}

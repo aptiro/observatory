@@ -27,6 +27,10 @@
         {% endfor %}
     </table>
 
+    {% if contenttype.slug == 'items' %}
+        <a class="btn btn-danger btn-sm delete-selected-items">Delete Selected Items</a>
+    {% endif %}
+
     {{ pager() }}
 
     </div><!-- /span9 -->

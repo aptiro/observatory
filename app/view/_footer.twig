@@ -31,6 +31,28 @@
        {%  if config.get('general/wysiwyg/ck') is iterable %}ck: {{ config.get('general/wysiwyg/ck')|json_encode()|raw }},{% endif %}
        {%  if config.get('general/wysiwyg/filebrowser') is iterable %}filebrowser: {{ config.get('general/wysiwyg/filebrowser')|json_encode()|raw }}{% else %}filebrowser: false{% endif %}
        };
+       $(document).ready(function(){
+        $(".delete-selected-items").click(function(e){
+            e.preventDefault();
+            var r = confirm('Are you sure you want to delete these items?');
+            if(r) {
+                var itemIds = [];
+                $(".item-checkbox:checked").each(function(){
+                    itemIds.push($(this).val());
+                })
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/delete_items_bulk',
+                    data: {
+                        items: itemIds
+                    },
+                    success: function() {
+                        window.location.reload();
+                    }
+                })
+            }
+        })
+       })
 </script>
 
 </html>
