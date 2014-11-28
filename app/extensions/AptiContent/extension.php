@@ -206,6 +206,7 @@ class Overview extends \Bolt\Content
             'country_list' => $country_list,
             'domain_list' => $domain_list,
             'item_map' => $item_map,
+            'feed_url' => $feed_url,
             'APTI_EXTRA_HEAD' => "<link rel=\"alternate\" href=\"{$feed_url}\">",
         ));
     }
@@ -264,6 +265,7 @@ class Overview extends \Bolt\Content
             'item_list' => $item_list,
             'domain' => $domain,
             'country' => $country,
+            'feed_url' => $feed_url,
             'APTI_EXTRA_HEAD' => "<link rel=\"alternate\" href=\"{$feed_url}\">",
         ));
     }

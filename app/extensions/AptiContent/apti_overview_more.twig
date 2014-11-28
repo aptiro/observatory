@@ -1,6 +1,9 @@
 {% include '_header.twig' %}
 
-<h1>{{ domain }} - {{ country_name(country) }}</h1>
+<h1>
+  {{ domain }} - {{ country_name(country) }}
+  <a href="{{ feed_url }}"><i class="fa fa-rss-square"></i></a>
+</h1>
 
 <ul class="list-unstyled list-overview-more">
   {% for item in item_list %}
