@@ -218,7 +218,7 @@ class Overview extends \Bolt\Content
         $body = feed($app, $feed_id, "Policy Observatory", $item_list);
 
         return new Response($body, 200,
-            array('Content-Type' => 'application/atom+xml; charset=utf-8',
+            array('Content-Type' => 'application/atom+xml',
                 'Cache-Control' => 's-maxage=3600, public',
             )
         );
@@ -278,7 +278,7 @@ class Overview extends \Bolt\Content
         $body = feed($app, $feed_id, $title, $item_list);
 
         return new Response($body, 200,
-            array('Content-Type' => 'application/atom+xml; charset=utf-8',
+            array('Content-Type' => 'application/atom+xml',
                 'Cache-Control' => 's-maxage=3600, public',
             )
         );
