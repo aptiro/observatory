@@ -58,8 +58,8 @@ items:
             type: select
             values: [ AT, BE, BG, HR, CY, CZ, DK, EE, EU, FI, FR, DE, Global, GR, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE, UK ]
         weight:
-            type: select
-            values: [1, 2, 3]
+            type: integer
+            default: 1
         feed_id:
             type: integer
     relations:

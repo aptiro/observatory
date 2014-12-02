@@ -233,15 +233,14 @@
 
         });
 
-        $('#weight option').map(function() {
-          var label = {
-            1: "Medium",
-            2: "Important",
-            3: "Very important"
-          };
-          var $option = $(this);
-          $option.text(label[$option.val()]);
-        });
+        var $weightSelect = $('<select name="weight" id="weight">')
+          .append(
+              '<option value="1">Medium</option>',
+              '<option value="2">Important</option>',
+              '<option value="3">Very importan</option>'
+          );
+        var $weightInput = $('#weight').replaceWith($weightSelect);
+        $weightSelect.val($weightInput.val());
 
     });
 </script>
