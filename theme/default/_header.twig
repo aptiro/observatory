@@ -13,10 +13,22 @@
         </title>
 
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
-
-        {% if record and record.description|length > 0 %}
-            <meta name="description" content="{{ record.description|striptags|slice(0, 160) }}">
-            <meta name="keywords" content="{% for tag in record.taxonomy.tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}">
+        {% if currentPath == '/' %}
+            <meta name="description" content="Policy watch from Europe on Privacy, Intellectual Property Rights and Internet Governance policies">
+        {% elseif currentPath in '/overview/'  %}
+            <meta name="description" content="Policy news from Europe and beyond on Privacy, Intellectual Property Rights and Internet Governance">
+        {% elseif currentPath in '/page/ig/' %}
+            <meta name="description" content="Tables on comparative policies in Internet Governance from several European countries - develloped under the MAPPING project's Policy Observatory">
+        {% elseif currentPath in '/page/ipr/' %}
+            <meta name="description" content="Tables on comparative policies in Intellectual Property Rights from several European countries - develloped under the MAPPING project's Policy Observatory">
+        {% elseif currentPath in '/page/privacy/' %}
+            <meta name="description" content="Tables on comparative policies in Privacy from several European countries - develloped under the MAPPING project's Policy Observatory">
+        {% elseif currentPath in '/page/startups/' %}
+            <meta name="description" content="Tables on comparative policies in Startups from several European countries - develloped under the MAPPING project's Policy Observatory">
+        {% else %}
+            {% if record and record.description|length > 0 %}
+                <meta name="keywords" content="{% for tag in record.taxonomy.tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}">
+            {% endif %}
         {% endif %}
 
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
