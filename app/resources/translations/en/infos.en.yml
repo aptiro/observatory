@@ -90,7 +90,8 @@ extension:
             <pre><code>enabled_extensions: [ HelloWorld, GoogleAnalytics ]</code></pre>
 homepage:
     welcome: |
-        <p>Lorem ipsum dolor sit amet, an nam mentitum moderatius consectetuer, sensibus explicari maiestatis quo ad.<br />
-        In sea vocent phaedrum. Ex laoreet conclusionemque mel, ut ludus splendide nec.<br />
-        Ut quodsi evertitur per, legere alterum sea in. Vix an eruditi salutandi conceptam, ne veniam minimum sit. Id dolorem intellegat quo, at iisque pertinax mei.
+        <p>The MAPPING Policy Observatory is a “policy watch” in several European countries in the areas of Privacy, Intellectual Property Rights and Internet Governance.
+        Check out the synthetic overview on <a href="/overview">the policy news</a> or <a href="/overview/feed.xml">subscribe to its RSS feed</a>.
+        Or select one of the comparative policy overview tables on <a href="/page/privacy">Privacy</a>, <a href="/page/ipr">Intellectual Property</a>, <a href="/page/ig">Internet Governance</a>
+        or <a href="/page/startups">Startups</a>
         </p>

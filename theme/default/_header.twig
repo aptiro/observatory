@@ -4,7 +4,13 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>{% if record.title is defined %}{{ record.title|striptags }} - {% endif %}{{ app.config.get('general/sitename') }}</title>
+        <title>
+            {% if currentPath == '/' %}
+                Policy Observatory of the MAPPING FP7 project
+            {% else %}
+                {% if record.title is defined %}{{ record.title|striptags }} - {% endif %}{{ app.config.get('general/sitename') }}
+            {% endif %}
+        </title>
 
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
 
@@ -15,7 +21,7 @@
 
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-        
+
         <link rel="stylesheet" href="{{ paths.theme }}css/site.css"/>
 
 		<!--[if lt IE 9]>
@@ -59,9 +65,9 @@
 
 
             <div class="col-sm-12">
-                {{ menu('main', '_menu_sidebar.twig') }} 
+                {{ menu('main', '_menu_sidebar.twig') }}
                 <header id="page-header" role="navigation">
-                </header>               
+                </header>
             </div>
 
         </div>
@@ -72,5 +78,5 @@
             {% if currentPath == '/' %}
                 <div class="col-sm-8">
             {% else %}
-                <div class="col-sm-12">            
+                <div class="col-sm-12">
             {% endif %}
