@@ -14,7 +14,7 @@ var map = L.mapbox.map('homepage-map', 'examples.map-i86nkdio', {
   keyboard: false,
   zoomControl: false
 });
-map.setView([52, 14], 4);
+map.setView([52, 14], 5);
 
 var centroids = {};
 $.getJSON('/theme/default/js/country_centroids.geojson', function(geojson) {
