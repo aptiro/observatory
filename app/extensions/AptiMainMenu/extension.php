@@ -49,22 +49,22 @@ class Controller
                 array('label' => 'Startups', 'path' => '/page/startups'),
                 array('label' => 'Privacy', 'path' => '/page/privacy', 'class' => 'dropdown',
                     'submenu' => array(
-                        array('label' => 'Privacy 1', 'path' => '/page/privacy-1'),
-                        array('label' => 'Privacy 2', 'path' => '/page/privacy-2'),
-                        array('label' => 'Privacy 3', 'path' => '/page/privacy-3'),
+                        array('label' => 'Data Retention Legislation Europe', 'path' => '/page/data-retention-legislation-europe'),
+                        array('label' => 'Personal Data Breaches Policies Europe', 'path' => '/page/personal-data-breaches-policies-europe'),
+                        array('label' => 'Personal Data Security Policies Europe', 'path' => '/page/personal-data-security-policies-europe'),
                     )
                 ),
                 array('label' => 'Intellectual Property Rights', 'path' => '/page/ipr', 'class' => 'dropdown',
                     'submenu' => array(
-                        array('label' => 'IPR 1', 'path' => '/page/ipr-1'),
-                        array('label' => 'IPR 2', 'path' => '/page/ipr-2'),
-                        array('label' => 'IPR 3', 'path' => '/page/ipr-3'),
+                        array('label' => 'Basic Intellectual Property Legislation Europe', 'path' => '/page/basic-intellectual-property-legislation-europe'),
+                        array('label' => 'EU Orphan Works Directive Implementation', 'path' => '/page/eu-orphan-works-directive-implementation'),
+                        array('label' => 'Internet Blocking IPR Enforcement', 'path' => '/page/internet-blocking-ipr-enforcement'),
                     )),
                 array('label' => 'Internet Governance', 'path' => '/page/ig', 'class' => 'dropdown',
                     'submenu' => array(
-                        array('label' => 'IG 1', 'path' => '/page/ig-1'),
-                        array('label' => 'IG 2', 'path' => '/page/ig-2'),
-                        array('label' => 'IG 3', 'path' => '/page/ig-3'),
+                        array('label' => 'European ccTLDds Management Table', 'path' => '/page/european-cctlds-management-table'),
+                        array('label' => 'European Actors Internet Governance', 'path' => '/page/european-actors-internet-governance'),
+                        array('label' => 'Net Neutrality Policies', 'path' => '/page/net-neutrality-policies'),
                     )),
             )
         );
