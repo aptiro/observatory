@@ -1,5 +1,4 @@
-APTI-obs
-====
+## APTI-obs
 
 install composer dependencies:
 ```
@@ -42,3 +41,9 @@ periodically run the scraper:
 ```
     curl 'http://apti-obs.devel/apti-scraper/' -d key=asdf
 ```
+
+### License
+apti-obs is based on the Bolt CMS, which is licensed under
+the MIT license. Original source code is copyright 2014,
+Victor Avasiloaei and Alex Morega, licensed under the MIT
+license.
