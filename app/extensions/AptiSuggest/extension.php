@@ -47,6 +47,15 @@ class Suggest extends \Bolt\Content {
     public static function form(Request $request, Silex\Application $app) {
         if($request->getMethod() == 'POST') {
             $form = $request->request;
+
+            $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify' .
+              '?secret=' . $app['config']->get('general/apti_recaptcha/secret') .
+              '&response=' . urlencode($form->get('g-recaptcha-response'));
+            $recaptcha_resp = json_decode(file_get_contents($recaptcha_url), true);
+            if(! $recaptcha_resp['success']) {
+                return "Bad captcha";
+            }
+
             $title = $form->get('title');
             $content = $app['storage']->getContentObject('items');
             $content->setValues(array(
@@ -70,6 +79,7 @@ class Suggest extends \Bolt\Content {
             'url' => $request->query->get('url'),
             'title' => $request->query->get('title'),
             'description' => $request->query->get('description'),
+            'recaptcha_sitekey' => $app['config']->get('general/apti_recaptcha/sitekey'),
         ));
     }
 
