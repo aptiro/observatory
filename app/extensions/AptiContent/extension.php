@@ -315,4 +315,28 @@ class Api extends \Bolt\Content
             die();
         }
     }
+
+    static function dump(Silex\Application $app) {
+        $tmp = fopen('php://temp', 'r+');
+        fputcsv($tmp, array('id', 'title', 'url'));
+        $query = (
+            "SELECT id " .
+            "FROM bolt_items " .
+            "WHERE status = 'published' " .
+            "ORDER BY id"
+        );
+        $stmt = $app['db']->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchAll() as $row) {
+          $item = $app['storage']->getContent('items', array('id' => $row['id']));
+          fputcsv($tmp, array($item['id'], $item['title'], $item['url']));
+        }
+
+        $size = ftell($tmp);
+        rewind($tmp);
+        $body = fread($tmp, $size);
+        fclose($tmp);
+
+        return new Response($body, 200, array('Content-Type' => 'text/csv; charset=utf-8'));
+    }
 }

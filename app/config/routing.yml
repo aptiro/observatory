@@ -155,3 +155,7 @@ apti_suggest:
 apti_delete_bulk:
   path:               /api/delete_items_bulk
   defaults:           { _controller: 'AptiContent\Api::bulk_delete' }
+
+api_dump:
+  path:               /api/dump
+  defaults:           { _controller: 'AptiContent\Api::dump' }
