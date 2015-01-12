@@ -8,7 +8,13 @@
       <p>{{ record.description }}</p>
       <footer>
         {% setcontent feed = 'feed' where { id: record.feed_id } %}
-        Source: <a href="{{ record.url }}">{{ feed.title }}</a>
+        Source: <a href="{{ record.url }}">
+          {%- if feed.title -%}
+            {{ feed.title }}
+          {%- else -%}
+            {{ record.url }}
+          {%- endif -%}
+        </a>
       </footer>
     </blockquote>
 
