@@ -318,18 +318,73 @@ class Api extends \Bolt\Content
 
     static function dump(Silex\Application $app) {
         $tmp = fopen('php://temp', 'r+');
-        fputcsv($tmp, array('id', 'title', 'url'));
+        fputcsv($tmp, array(
+            'id', 'title', 'url', 'description', 'weight', 'datepublish',
+            'country', 'domains', 'tags', 'stakeholders'
+        ));
         $query = (
             "SELECT id " .
             "FROM bolt_items " .
             "WHERE status = 'published' " .
             "ORDER BY id"
         );
-        $stmt = $app['db']->prepare($query);
-        $stmt->execute();
-        foreach($stmt->fetchAll() as $row) {
-          $item = $app['storage']->getContent('items', array('id' => $row['id']));
-          fputcsv($tmp, array($item['id'], $item['title'], $item['url']));
+        foreach($app['db']->fetchAll($query) as $row) {
+            $item = $app['storage']->getContent('items', array('id' => $row['id']));
+
+            $stmt = $app['db']->prepare(
+                "SELECT slug " .
+                "FROM bolt_taxonomy " .
+                "WHERE taxonomytype = 'tags' " .
+                "AND content_id = :item_id"
+            );
+            $stmt->bindValue('item_id', $item['id']);
+            $stmt->execute();
+            $tag_items = [];
+            foreach($stmt->fetchAll() as $row) {
+                $tag_items[] = $row['slug'];
+            }
+
+            $stmt = $app['db']->prepare(
+                "SELECT slug " .
+                "FROM bolt_taxonomy " .
+                "WHERE taxonomytype = 'stakeholder' " .
+                "AND content_id = :item_id"
+            );
+            $stmt->bindValue('item_id', $item['id']);
+            $stmt->execute();
+            $stakeholder_items = [];
+            foreach($stmt->fetchAll() as $row) {
+                $stakeholder_items[] = $row['slug'];
+            }
+
+            $stmt = $app['db']->prepare(
+                "SELECT slug " .
+                "FROM bolt_domains ".
+                "JOIN bolt_relations ".
+                "    ON bolt_relations.to_contenttype = 'domains' ".
+                "    AND bolt_relations.to_id = bolt_domains.id ".
+                "    AND bolt_relations.from_contenttype = 'items' ".
+                "    AND bolt_relations.from_id = :item_id"
+            );
+            $stmt->bindValue('item_id', $item['id']);
+            $stmt->execute();
+            $domain_items = [];
+            foreach($stmt->fetchAll() as $row) {
+                $domain_items[] = $row['slug'];
+            }
+
+            fputcsv($tmp, array(
+                $item['id'],
+                $item['title'],
+                $item['url'],
+                $item['description'],
+                $item['weight'],
+                $item['datepublish'],
+                $item['country'],
+                join(', ', $domain_items),
+                join(', ', $tag_items),
+                join(', ', $stakeholder_items),
+            ));
         }
 
         $size = ftell($tmp);
