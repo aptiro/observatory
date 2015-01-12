@@ -34,10 +34,8 @@
     <p>
       Tags:
       {% for tag in record.taxonomy.tags %}
-          <a href="/tags/{{ tag }}">
-              {{ tag }}
-          </a>
-          {% if not loop.last %}, {% endif %}
+          <a href="/tags/{{ tag }}">{{ tag }}</a>
+          {%- if not loop.last %}, {% endif %}
       {% endfor %}
     </p>
 
