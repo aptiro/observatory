@@ -51,8 +51,12 @@
                     }
                 })
             }
-        })
-       })
+        });
+        $(".selectall").click(function(evt) {
+          var checked = $(this).prop("checked");
+          $(".item-checkbox").prop("checked", checked);
+        });
+       });
 </script>
 
 </html>

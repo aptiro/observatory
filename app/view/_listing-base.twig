@@ -26,7 +26,9 @@
                 {% set link = "?" ~ filter ~ "order=" %}
                 <tr>
                     {% if content.contenttype.slug == 'items' %}
-                        <th></th>
+                    <th>
+                      <input type="checkbox" class="selectall">
+                    </th>
                     {% endif %}
                     {% block listing_header %}
                     <th class="hide-phone"><a href='{{link}}{% if request('order')=="id" %}-{%endif%}id'>#</a></th>
