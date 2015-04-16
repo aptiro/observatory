@@ -59,7 +59,7 @@
                     success: function(data) {
                         if (data.length > 0) {
                             $.each(data, function(index, item){
-                                $("#tagcloud-{{taxonomy.slug}}").append('<a href="#" rel="' + item.count + '">' + item.slug + '</a>');
+                                $("#tagcloud-{{taxonomy.slug}}").append('<a href="#" rel="' + item.count + '">' + item.name + '</a>');
                             });
                             $("#tagcloud-{{taxonomy.slug}} a").on('click', function (e) {
                                 e.preventDefault();

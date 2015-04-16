@@ -256,7 +256,7 @@ class Async implements ControllerProviderInterface
 
         $limit = $app['request']->get('limit', 20);
 
-        $query = "select slug , count(slug) as count from  %staxonomy where taxonomytype = ? group by  slug order by count desc limit %s";
+        $query = "select slug , count(slug) as count , name from  %staxonomy where taxonomytype = ? group by  slug, name order by count desc limit %s";
         $query = sprintf($query, $prefix, intval($limit));
         $query = $app['db']->executeQuery($query, array($taxonomytype));
 
