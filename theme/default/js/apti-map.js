@@ -3,8 +3,7 @@
 
 var INTERVAL = 4;
 
-L.mapbox.accessToken = 'pk.eyJ1IjoibWdheCIsImEiOiJZM2VMVm5BIn0.gLOGe-GhinkiHWeQYv941A';
-var map = L.mapbox.map('homepage-map', 'examples.map-i86nkdio', {
+var map = L.map('homepage-map', {
   dragging: false,
   touchZoom: false,
   scrollWheelZoom: false,
@@ -15,6 +14,13 @@ var map = L.mapbox.map('homepage-map', 'examples.map-i86nkdio', {
   zoomControl: false
 });
 map.setView([52, 14], 5);
+L.tileLayer(
+  'http://{s}.api.cartocdn.com/base-light/{z}/{x}/{y}.png',
+  {
+    maxZoom: 11,
+    attribution: 'CartoDB base map, data from <a href="http://openstreetmap.org">OpenStreetMap</a>'
+  }
+).addTo(map);
 
 var centroids = {};
 $.getJSON('/theme/default/js/country_centroids.geojson', function(geojson) {
