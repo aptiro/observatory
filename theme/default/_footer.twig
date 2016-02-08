@@ -2,13 +2,6 @@
             {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
             {% if currentPath == '/' %}
             <div class="col-sm-4 mapping-sidebar">
-                <div id="mapping-competition-banner">
-                    <a href="http://mapping-competition.uni-hannover.de/"
-                       style="display: block">
-                        <img src="/theme/default/img/mapping-competition.jpg"
-                             style="width: 100%; margin-bottom: 1em">
-                    </a>
-                </div>
                 <div id="homepage-map" style="height: 300px"></div>
                     <div id="tag-cloud">
                     {% set tags = tagCloud() %}
