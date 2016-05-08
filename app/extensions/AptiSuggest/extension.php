@@ -5,7 +5,6 @@ namespace AptiSuggest;
 use Silex;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use \Mandrill;
 
 const SITE_URL = "http://observatory.mappingtheinternet.eu";
 const FROM_EMAIL = "noreply@observatory.mappingtheinternet.eu";
@@ -29,16 +28,8 @@ class Extension extends \Bolt\BaseExtension
 
 
 function send_mail($app, $subject, $text) {
-    $key = $app['config']->get('general/apti_mail/key');
     $to = $app['config']->get('general/apti_mail/recipients');
-    $mandrill = new Mandrill($key);
-    $mandrill->messages->send(array(
-        'from_name' => "Policy Observatory Notifier",
-        'from_email' => FROM_EMAIL,
-        'to' => $to,
-        'subject' => $subject,
-        'text' => $text,
-    ));
+    mail($to, $subject, $text, "From: " . FROM_EMAIL);
 }
 
 
