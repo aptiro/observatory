@@ -9,7 +9,10 @@ function evaluate(text) {
   get_words().forEach(function(word) {
     found = [].concat(found, text.match(RegExp('\\b'+word+'\\b', 'g')) || []);
   });
-  return found;
+  return {
+    words: found,
+    totalWords: (text.match(/\S+/g) || []).length
+  };
 }
 
 function patch_index() {
@@ -23,9 +26,9 @@ function patch_index() {
     var url = $('a', tr).attr('href');
     $.get(url, function(html) {
       var desc = $('textarea[name=description]', html).html();
-      var words = evaluate(desc);
-      console.log(+url.match(/\d+$/)[0], words);
-      tr.append($('<td>').text(words.length));
+      var stats = evaluate(desc);
+      console.log(+url.match(/\d+$/)[0], stats);
+      tr.append($('<td>').text('' + stats.words.length + ' / ' + stats.totalWords));
     });
   })
 }
