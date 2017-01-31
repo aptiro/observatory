@@ -15,7 +15,7 @@ var map = L.map('homepage-map', {
 });
 map.setView([52, 14], 5);
 L.tileLayer(
-  'http://{s}.api.cartocdn.com/base-light/{z}/{x}/{y}.png',
+  'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
   {
     maxZoom: 11,
     attribution: 'CartoDB base map, data from <a href="http://openstreetmap.org">OpenStreetMap</a>'
