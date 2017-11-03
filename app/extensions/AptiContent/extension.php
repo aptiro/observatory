@@ -181,7 +181,6 @@ class Overview extends \Bolt\Content
             "       AND bolt_relations.to_id = bolt_domains.id ".
             "   JOIN ids ON ids.id = bolt_items.id ".
             "   ORDER BY ".
-            "       bolt_items.weight DESC, ".
             "       bolt_items.datepublish DESC ".
             ") AS q WHERE row_number < 5"
         ;
